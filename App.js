@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import { Platform, StatusBar, StyleSheet, View, Text, Button } from 'react-native';
 import { SplashScreen } from 'expo';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
@@ -7,10 +7,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { LoginScreen } from './screens/LoginScreen';
 import BottomTabNavigator from './navigation/BottomTabNavigator';
+import LoginNavigator from './navigation/LoginNavigator';
 import useLinking from './navigation/useLinking';
 
 const Stack = createStackNavigator();
-
+  
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
   const [initialNavigationState, setInitialNavigationState] = React.useState();
@@ -50,10 +51,12 @@ export default function App(props) {
         {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
         
         <NavigationContainer ref={containerRef} initialState={initialNavigationState}> 
-          <Stack.Navigator>  
-            <Stack.Screen name="Home" component={LoginScreen} />
-            <Stack.Screen name="Root" component={BottomTabNavigator} />
-          </Stack.Navigator>
+          <Stack.Navigator>   
+
+            <Stack.Screen name="Root" component={ LoginNavigator } />
+            <Stack.Screen name="Mall" component={ BottomTabNavigator } />
+          
+        </Stack.Navigator>
         </NavigationContainer>
       </View>
 

@@ -39,7 +39,6 @@ export default function App(props) {
         SplashScreen.hide();
       }
     }
-
     loadResourcesAndDataAsync();
   }, []);
 

@@ -4,8 +4,7 @@ import { SplashScreen } from 'expo';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { LoginScreen } from './screens/LoginScreen';
+import { createStackNavigator } from '@react-navigation/stack'; 
 import BottomTabNavigator from './navigation/BottomTabNavigator';
 import LoginNavigator from './navigation/LoginNavigator';
 import useLinking from './navigation/useLinking';  
@@ -42,6 +41,8 @@ export default function App(props) {
     }
     loadResourcesAndDataAsync();
   }, []);
+
+
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return null;

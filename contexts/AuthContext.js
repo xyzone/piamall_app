@@ -25,7 +25,9 @@ const login = (dispatch) => {
         async(username, password, navigation) => { 
 
             if(username == 'richard'){
-                dispatch({type: 'login', payload: {is_login: false, authToken: 'token-12345'}})
+                let token = 'token-12345'
+                dispatch({type: 'login', payload: {is_login: true, authToken: token}})
+                await AsyncStorage.setItem('authToken', token)
                 navigateTo('Main')
                 //navigation.navigate('Main') 
             }else{
@@ -39,12 +41,21 @@ const login = (dispatch) => {
 const validateLogin = (dispatch) => {
     return (
         async () => {
-            navigateTo('Signin')
+            const token = AsyncStorage.getItem('authToken')
+            if (token != '')
+            {
+                console.log(token)
+                //dispatch({type: 'login', payload: {is_login: true, authToken: token}})
+                
+            }else{
+                 
+            }
+            
         }
     )
 }
 
 
-const mapContext = MapDataContext(_authReducer, 'authState', {login}, initialValue)
+const mapContext = MapDataContext(_authReducer, 'authState', {login, validateLogin}, initialValue)
 
 export const {Context, Provider} = mapContext

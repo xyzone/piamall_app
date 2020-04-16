@@ -16,7 +16,7 @@ export default function LinksScreen({navigation}) {
   
   const logoutFn = async() => {
       await logout();
-      navigation.navigate('Login')
+      navigation.navigate('LoginPanel')
   } 
   
 

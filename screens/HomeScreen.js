@@ -34,7 +34,7 @@ export default function HomeScreen({navigation}) {
         <Text style={styles.tabBarInfoText}>PIA Mall Home</Text>       
       </View>
 
-      <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+      <ScrollView   contentContainerStyle={styles.contentContainer}>
         <View> 
           <SliderBox images={banners}  
            autoplay circleLoop
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   contentContainer: {
-    paddingTop: 30,
+    paddingTop: 10,
   },
   welcomeContainer: {
     alignItems: 'center',
@@ -182,6 +182,7 @@ const styles = StyleSheet.create({
          
   },
   getStartedContainer: {
+    marginTop: 10,
     alignItems: 'center',
     marginHorizontal: 50,
   },
@@ -204,8 +205,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   tabTopContainer: { 
-    position: 'absolute',
-    top: 30,
+     
+    
     left: 0,
     right: 0,
     ...Platform.select({

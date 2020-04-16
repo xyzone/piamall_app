@@ -20,21 +20,11 @@ const SCREEN_HEIGHT = Dimensions.get('window').height;
 export default function LoginScreen({navigation}) {
 
     const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
-    const [loginToken, setLoginToken] = useState('')
+    const [password, setPassword] = useState('') 
     const { authState, login, validateLogin } = useContext(AuthContext)
-
-    const checkLogin = async() => {
-        const auth_token = await validateLogin();
-        setLoginToken(auth_token)
-        console.log(authState, auth_token)
-        if (auth_token != ''){
-            navigation.navigate('Main')
-        } 
-    }
-
+ 
     useEffect( () => {  
-      checkLogin() 
+    
     }, [])
 
     return (

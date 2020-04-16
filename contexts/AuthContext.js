@@ -4,14 +4,16 @@ import {navigateTo} from '../navigation/RootNavigation';
 import md5 from 'md5';
 const initialValue = {
     is_login: false,
-    authToken: null,
+    authToken: '',
     loginMessage: ''
 }
 
 const _authReducer = (state, action) => {
+    console.log(action.payload.is_login)
     switch (action.type) {
         case 'login':
-            return {...state, loginMessage: '', is_login: action.payload.is_login, authToken: action.payload.authToken}
+            return {...state, loginMessage: '', is_login: action.payload.is_login, 
+                    authToken: action.payload.authToken}
             break;
         case 'show_message':
             return {...state, loginMessage: action.payload}        
@@ -41,14 +43,15 @@ const login = (dispatch) => {
 const validateLogin = (dispatch) => {
     return (
         async () => {
-            const token = AsyncStorage.getItem('authToken')
+            const token = await AsyncStorage.getItem('authToken')
             if (token != '')
             {
-                console.log(token)
-                //dispatch({type: 'login', payload: {is_login: true, authToken: token}})
-                
+                console.log('before', token)
+                dispatch({type: 'login', payload: {is_login: true, authToken: token}})
+                console.log('after', token)
+                return token 
             }else{
-                 
+                return ''
             }
             
         }

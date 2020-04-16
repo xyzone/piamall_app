@@ -35,7 +35,7 @@ export default function HomeScreen({navigation}) {
       </View>
 
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-        <View style={styles.welcomeContainer}> 
+        <View> 
           <SliderBox images={banners}  
            autoplay circleLoop
            sliderBoxHeight={180}
@@ -44,6 +44,23 @@ export default function HomeScreen({navigation}) {
 
         <View style={styles.getStartedContainer}>
           
+        <Text style={styles.getStartedText}>Earn loyalty points just by
+being a loyal customer</Text>
+
+          <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
+            <Text style={styles.codeHighlightText}>
+              Discover exclusive offers that we have selected for you from our participating partners. 
+               
+              Use your points to purchase vouchers, gift cards, services and lifestyle offers to save at your favourite retailers.
+              </Text>
+          </View>
+
+          <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
+            <Text style={styles.codeHighlightText}>   
+              
+              Our 'points+cash' system allows you to check out simply and securely and track your points balance. Remember, the more properties you have, the more points you can earn with PIA and the more you can save.
+              </Text>
+          </View>
 
           <Text style={styles.getStartedText}>Earn loyalty points just by
 being a loyal customer</Text>
@@ -62,7 +79,26 @@ being a loyal customer</Text>
               Our 'points+cash' system allows you to check out simply and securely and track your points balance. Remember, the more properties you have, the more points you can earn with PIA and the more you can save.
               </Text>
           </View>
- 
+
+
+          <Text style={styles.getStartedText}>Earn loyalty points just by
+being a loyal customer</Text>
+
+          <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
+            <Text style={styles.codeHighlightText}>
+              Discover exclusive offers that we have selected for you from our participating partners. 
+               
+              Use your points to purchase vouchers, gift cards, services and lifestyle offers to save at your favourite retailers.
+              </Text>
+          </View>
+
+          <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
+            <Text style={styles.codeHighlightText}>   
+              
+              Our 'points+cash' system allows you to check out simply and securely and track your points balance. Remember, the more properties you have, the more points you can earn with PIA and the more you can save.
+              </Text>
+          </View>
+
         </View>
 
         <View style={styles.helpContainer}>
@@ -119,6 +155,7 @@ const styles = StyleSheet.create({
   },
 
   container: {
+    paddingTop: 30,
     flex: 1,
     backgroundColor: '#fff',
   },
@@ -130,7 +167,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   contentContainer: {
-    paddingTop: 5,
+    paddingTop: 30,
   },
   welcomeContainer: {
     alignItems: 'center',
@@ -167,7 +204,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   tabTopContainer: { 
-    top: 0,
+    position: 'absolute',
+    top: 30,
     left: 0,
     right: 0,
     ...Platform.select({

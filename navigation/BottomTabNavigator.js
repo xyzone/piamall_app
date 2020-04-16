@@ -4,8 +4,8 @@ import * as React from 'react';
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
-import AccountScreen from '../screens/AccountScreen';
-
+import AccountScreen from '../screens/AccountScreen'; 
+import OrderScreen from '../screens/OrderScreen';  
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Home';
 
@@ -33,7 +33,14 @@ export default function BottomTabNavigator({ navigation, route }) {
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-basket" />,
         }}
       />
-
+     <BottomTab.Screen
+        name="Orders"
+        component={OrderScreen}
+        options={{
+          title: 'Orders',
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-filing" />,
+        }}
+      />    
       <BottomTab.Screen
         name="Account"
         component={AccountScreen}
@@ -42,14 +49,8 @@ export default function BottomTabNavigator({ navigation, route }) {
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="ios-contact" />,
         }}
       /> 
-      <BottomTab.Screen
-        name="Orders"
-        component={AccountScreen}
-        options={{
-          title: 'Orders',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-filing" />,
-        }}
-      />    
+     
+   
     </BottomTab.Navigator>
 
 

@@ -16,7 +16,7 @@ const _authReducer = (state, action) => {
                     authToken: action.payload.authToken}
             break;
         case 'show_message':
-            return {...state, loginMessage: action.payload}        
+            return {...state, loginMessage: action.payload, authToken: ''}        
         default:
             break;
     }
@@ -33,7 +33,9 @@ const login = (dispatch) => {
                 navigateTo('Main')
                 //navigation.navigate('Main') 
             }else{
-                dispatch({type: 'show_message', payload: ' Failed to login, Email and password is not correct.'})
+                dispatch({
+                    type: 'show_message', 
+                    payload: ' Failed to login, Email and password is not correct.'})
             }
             
         }
@@ -58,7 +60,15 @@ const validateLogin = (dispatch) => {
     )
 }
 
+const logout = (dispatch) => {
+    return (
+        async () => {
+            await AsyncStorage.setItem('authToken', '') 
+            navigateTo('Login')
+        }
+    )
+}
 
-const mapContext = MapDataContext(_authReducer, 'authState', {login, validateLogin}, initialValue)
+const mapContext = MapDataContext(_authReducer, 'authState', {login, validateLogin, logout}, initialValue)
 
 export const {Context, Provider} = mapContext

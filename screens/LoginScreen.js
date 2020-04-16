@@ -21,23 +21,25 @@ export default function LoginScreen({navigation}) {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [loginToken, setLoginToken] = useState('')
     const { authState, login, validateLogin } = useContext(AuthContext)
 
-    useEffect( () => {
-      
-      async function checkLogin(){
-        await validateLogin()
-        if (authState.is_login){
-          navigation.navigate('Main')
-        }
+    const checkLogin = async() => {
+        const auth_token = await validateLogin();
+        setLoginToken(auth_token)
+        console.log(authState, auth_token)
+        if (auth_token != ''){
+            navigation.navigate('Main')
+        } 
+    }
 
-      }
+    useEffect( () => {  
       checkLogin() 
     }, [])
 
     return (
         <View style={styles.container}>  
-            <Text>{authState.authToken} xxxx</Text>
+            <Text>{authState.authToken}</Text>
             <KeyboardAvoidingView
               contentContainerStyle={styles.loginContainer}
               behavior="position">

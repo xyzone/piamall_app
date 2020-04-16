@@ -2,8 +2,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react';
 
 import TabBarIcon from '../components/TabBarIcon';
-import LoginScreen from '../screens/LoginScreen'; 
-import LoginCheck from '../screens/LoginCheck'; 
+import LoginScreen from '../screens/LoginScreen';  
 
 const LoginNavi = createStackNavigator();
 const INITIAL_ROUTE_NAME = 'Home';

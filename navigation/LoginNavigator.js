@@ -3,6 +3,7 @@ import * as React from 'react';
 
 import TabBarIcon from '../components/TabBarIcon';
 import LoginScreen from '../screens/LoginScreen'; 
+import LoginCheck from '../screens/LoginCheck'; 
 
 const LoginNavi = createStackNavigator();
 const INITIAL_ROUTE_NAME = 'Home';
@@ -11,6 +12,7 @@ export default function LoginNavigator({ navigation, route }) {
   navigation.setOptions({ headerTitle: getHeaderTitle(route)  });
   return (
     <LoginNavi.Navigator  initialRouteName={INITIAL_ROUTE_NAME}>
+      
       <LoginNavi.Screen
         name="Login"
         component={LoginScreen}

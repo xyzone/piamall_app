@@ -10,7 +10,7 @@ import BottomTabNavigator from './navigation/BottomTabNavigator';
 import LoginNavigator from './navigation/LoginNavigator';
 import useLinking from './navigation/useLinking';  
 import { navigationRef } from './navigation/RootNavigation';
-import { Context as AuthContext, Provider as AuthProvider } from './contexts/AuthContext'; 
+import { Provider as AuthProvider } from './contexts/AuthContext'; 
 const Stack = createStackNavigator();
   
 export default function App(props) {

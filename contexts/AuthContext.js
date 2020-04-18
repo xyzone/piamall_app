@@ -1,3 +1,4 @@
+import React, {createContext, useReducer} from 'react'
 import {AsyncStorage} from 'react-native';
 import MapDataContext from './mapDataContext';
 import {navigateTo} from '../navigation/RootNavigation'; 
@@ -7,6 +8,7 @@ const initialValue = {
     authToken: null,
     loginMessage: ''
 }
+
 
 const _authReducer = (state, action) => {
     switch (action.type) {
@@ -44,6 +46,26 @@ const validateLogin = (dispatch) => {
     )
 }
 
+
+const authContext = createContext()
+
+const authProvider = (props) => {
+    const actions = {login, validateLogin}
+    const [state, dispatch] = useReducer(_authReducer, initialValue)    
+    return (
+        <authContext.Provider value={
+            {...{'authState': state},  
+             ...{'login': login(dispatch), 
+                 'validateLogin': validateLogin(dispatch)}
+             }}>
+            {props.children}
+        </authContext.Provider>
+    )
+}
+
+//const temp = {Context: authContext, Provider: authProvider}
+
+//export const {Context, Provider} = temp
 
 const mapContext = MapDataContext(_authReducer, 'authState', {login}, initialValue)
 

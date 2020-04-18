@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import * as WebBrowser from 'expo-web-browser';
-import React, {useState, useContext} from 'react'
+import React, {useState, useContext, useEffect} from 'react'
 import {   StyleSheet,
     View, 
     ImageBackground,
@@ -20,21 +20,16 @@ const SCREEN_HEIGHT = Dimensions.get('window').height;
 export default function LoginScreen({navigation}) {
 
     const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
-    const { authState, login } = useContext(AuthContext)
-
-
-    function checkLogin(username, password){
-        login(username, password)
-
-        if(authState.is_login){
-            navigation.navigate('Main')
-        }
-    } 
+    const [password, setPassword] = useState('') 
+    const { authState, login, validateLogin } = useContext(AuthContext)
+ 
+    useEffect( () => {  
     
+    }, [])
 
     return (
         <View style={styles.container}>  
+            <Text>{authState.authToken}</Text>
             <KeyboardAvoidingView
               contentContainerStyle={styles.loginContainer}
               behavior="position">
@@ -91,8 +86,7 @@ export default function LoginScreen({navigation}) {
                         title="Login"
                         containerStyle={{ flex: -1 }}
                         buttonStyle={styles.loginButton} 
-                        titleStyle={styles.loginTextButton}
-                        
+                        titleStyle={styles.loginTextButton} 
                         onPress={()=>{login(username, password)}}
                     /> 
 

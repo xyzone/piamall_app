@@ -1,53 +1,122 @@
 import * as WebBrowser from 'expo-web-browser';
 import * as React from 'react';
-import { Image, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Platform, StyleSheet,  TouchableOpacity, View, Dimensions, } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import { SliderBox } from "react-native-image-slider-box";
 
+import Image from 'react-native-scalable-image';
+ 
 import { MonoText } from '../components/StyledText';
 
-export default function HomeScreen() {
+import { Button, ThemeProvider, Text } from 'react-native-elements';
+export default function HomeScreen({navigation}) {
+
+  const [banners, setBanners] = React.useState([])
+
+  React.useEffect(() => {
+
+    setBanners(
+      [
+        "https://www.cportal.com.au/static/shoppingcart/images/banner1.png",
+        "https://www.cportal.com.au/static/shoppingcart/images/banner2.png",
+        "https://www.cportal.com.au/static/shoppingcart/images/banner3.png"
+      ]
+    )
+  
+
+  }, [])
+ 
+
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-        <View style={styles.welcomeContainer}>
-          <Image
-            source={
-              __DEV__
-                ? require('../assets/images/robot-dev.png')
-                : require('../assets/images/robot-prod.png')
-            }
-            style={styles.welcomeImage}
-          />
+
+      <View style={styles.tabTopContainer}>
+        <Text style={styles.tabBarInfoText}>PIA Mall Home</Text>       
+      </View>
+
+      <ScrollView   contentContainerStyle={styles.contentContainer}>
+        <View> 
+          <SliderBox images={banners}  
+           autoplay circleLoop
+           sliderBoxHeight={180}
+           />
         </View>
 
         <View style={styles.getStartedContainer}>
-          <DevelopmentModeNotice />
-
-          <Text style={styles.getStartedText}>Open up the code for this screen:</Text>
+          
+        <Text style={styles.getStartedText}>Earn loyalty points just by
+being a loyal customer</Text>
 
           <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-            <MonoText>screens/HomeScreen.js</MonoText>
+            <Text style={styles.codeHighlightText}>
+              Discover exclusive offers that we have selected for you from our participating partners. 
+               
+              Use your points to purchase vouchers, gift cards, services and lifestyle offers to save at your favourite retailers.
+              </Text>
           </View>
 
-          <Text style={styles.getStartedText}>
-            Change any of the text, save the file, and your app will automatically reload.
-          </Text>
+          <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
+            <Text style={styles.codeHighlightText}>   
+              
+              Our 'points+cash' system allows you to check out simply and securely and track your points balance. Remember, the more properties you have, the more points you can earn with PIA and the more you can save.
+              </Text>
+          </View>
+
+          <Text style={styles.getStartedText}>Earn loyalty points just by
+being a loyal customer</Text>
+
+          <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
+            <Text style={styles.codeHighlightText}>
+              Discover exclusive offers that we have selected for you from our participating partners. 
+               
+              Use your points to purchase vouchers, gift cards, services and lifestyle offers to save at your favourite retailers.
+              </Text>
+          </View>
+
+          <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
+            <Text style={styles.codeHighlightText}>   
+              
+              Our 'points+cash' system allows you to check out simply and securely and track your points balance. Remember, the more properties you have, the more points you can earn with PIA and the more you can save.
+              </Text>
+          </View>
+
+
+          <Text style={styles.getStartedText}>Earn loyalty points just by
+being a loyal customer</Text>
+
+          <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
+            <Text style={styles.codeHighlightText}>
+              Discover exclusive offers that we have selected for you from our participating partners. 
+               
+              Use your points to purchase vouchers, gift cards, services and lifestyle offers to save at your favourite retailers.
+              </Text>
+          </View>
+
+          <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
+            <Text style={styles.codeHighlightText}>   
+              
+              Our 'points+cash' system allows you to check out simply and securely and track your points balance. Remember, the more properties you have, the more points you can earn with PIA and the more you can save.
+              </Text>
+          </View>
+
         </View>
 
         <View style={styles.helpContainer}>
-          <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
-            <Text style={styles.helpLinkText}>Help, it didn’t automatically reload!</Text>
-          </TouchableOpacity>
+           
+          <Button  
+                title="Go Shopping Now !"
+                containerStyle={{ flex: -1 }}
+                buttonStyle={styles.button} 
+                titleStyle={styles.textButton} 
+                onPress={()=>{navigation.navigate('ShoppingCart')}}
+            /> 
+        
         </View>
+
+
       </ScrollView>
 
-      <View style={styles.tabBarInfoContainer}>
-        <Text style={styles.tabBarInfoText}>This is a tab bar. You can edit it in:</Text>
-
-        <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-          <MonoText style={styles.codeHighlightText}>navigation/BottomTabNavigator.js</MonoText>
-        </View>
-      </View>
+     
     </View>
   );
 }
@@ -55,29 +124,7 @@ export default function HomeScreen() {
 HomeScreen.navigationOptions = {
   header: null,
 };
-
-function DevelopmentModeNotice() {
-  if (__DEV__) {
-    const learnMoreButton = (
-      <Text onPress={handleLearnMorePress} style={styles.helpLinkText}>
-        Learn more
-      </Text>
-    );
-
-    return (
-      <Text style={styles.developmentModeText}>
-        Development mode is enabled: your app will be slower but you can use useful development
-        tools. {learnMoreButton}
-      </Text>
-    );
-  } else {
-    return (
-      <Text style={styles.developmentModeText}>
-        You are not in development mode: your app will run at full speed.
-      </Text>
-    );
-  }
-}
+ 
 
 function handleLearnMorePress() {
   WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/workflow/development-mode/');
@@ -89,8 +136,26 @@ function handleHelpPress() {
   );
 }
 
+const SCREEN_WIDTH = Dimensions.get('window').width;
+const SCREEN_HEIGHT = Dimensions.get('window').height;
+
 const styles = StyleSheet.create({
+
+  textButton: {
+    fontSize: 14,
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  button: {
+    marginTop: 10,  
+    //backgroundColor: 'rgba(232, 147, 142, 1)',
+    borderRadius: 15,
+    height: 30,
+    width: 200,
+  },
+
   container: {
+    paddingTop: 30,
     flex: 1,
     backgroundColor: '#fff',
   },
@@ -102,7 +167,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   contentContainer: {
-    paddingTop: 30,
+    paddingTop: 10,
   },
   welcomeContainer: {
     alignItems: 'center',
@@ -110,34 +175,56 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   welcomeImage: {
-    width: 100,
-    height: 80,
+    width: SCREEN_WIDTH, 
+    height: 150,
     resizeMode: 'contain',
-    marginTop: 3,
-    marginLeft: -10,
+    aspectRatio: 1, // <-- this
+         
   },
   getStartedContainer: {
+    marginTop: 10,
     alignItems: 'center',
     marginHorizontal: 50,
   },
-  homeScreenFilename: {
+  homeScreenFilename: { 
     marginVertical: 7,
   },
   codeHighlightText: {
+    fontSize: 13,
     color: 'rgba(96,100,109, 0.8)',
   },
-  codeHighlightContainer: {
-    backgroundColor: 'rgba(0,0,0,0.05)',
+  codeHighlightContainer: { 
+    backgroundColor: 'rgba(0,0,0,0.03)',
     borderRadius: 3,
-    paddingHorizontal: 4,
+    paddingHorizontal: 4, 
   },
   getStartedText: {
-    fontSize: 17,
+    fontSize: 19,
     color: 'rgba(96,100,109, 1)',
     lineHeight: 24,
     textAlign: 'center',
   },
-  tabBarInfoContainer: {
+  tabTopContainer: { 
+     
+    
+    left: 0,
+    right: 0,
+    ...Platform.select({
+      ios: {
+        shadowColor: 'black',
+        shadowOffset: { width: 0, height: -3 },
+        shadowOpacity: 0.1,
+        shadowRadius: 3,
+      },
+      android: {
+        elevation: 20,
+      },
+    }),
+    alignItems: 'center',
+    backgroundColor: '#fbfbfb',
+    paddingVertical: 10,
+  },
+  tabBottomContainer: {
     position: 'absolute',
     bottom: 0,
     left: 0,
@@ -173,7 +260,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
   },
   helpLinkText: {
-    fontSize: 14,
+    fontSize: 12,
     color: '#2e78b7',
   },
 });

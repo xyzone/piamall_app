@@ -1,12 +1,39 @@
+
+import React, {useContext, useEffect } from 'react'; 
 import { Ionicons } from '@expo/vector-icons';
-import * as WebBrowser from 'expo-web-browser';
-import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import * as WebBrowser from 'expo-web-browser'; 
+import { StyleSheet, Text, View, Button, Dimensions } from 'react-native';
 import { RectButton, ScrollView } from 'react-native-gesture-handler';
 
-export default function LinksScreen() {
+import { Context as AuthContext } from '../contexts/AuthContext'; 
+import Image from 'react-native-scalable-image';
+ 
+  
+
+export default function LinksScreen({navigation}) {
+
+  const { logout } = useContext(AuthContext)
+  
+  const logoutFn = async() => {
+      await logout();
+      navigation.navigate('LoginPanel')
+  } 
+  
+
+
   return (
+
+
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+        <View style={styles.welcomeContainer}>
+          <Image
+            source={ {uri: 'https://www.cportal.com.au/static/shoppingcart/images/banner1.png'} }
+            width={Dimensions.get('window').width * .99}
+          />
+        </View>
+
+    
+    
       <OptionButton
         icon="md-school"
         label="Read the Expo documentation"
@@ -25,6 +52,12 @@ export default function LinksScreen() {
         onPress={() => WebBrowser.openBrowserAsync('https://forums.expo.io')}
         isLastOption
       />
+    <OptionButton
+        icon="ios-chatboxes"
+        label="Logout"
+        onPress={() => logoutFn()}
+        isLastOption
+      /> 
     </ScrollView>
   );
 }
@@ -45,6 +78,11 @@ function OptionButton({ icon, label, onPress, isLastOption }) {
 }
 
 const styles = StyleSheet.create({
+  welcomeContainer: {
+    alignItems: 'center',
+    marginTop: 10,
+    marginBottom: 20,
+  },
   container: {
     flex: 1,
     backgroundColor: '#fafafa',

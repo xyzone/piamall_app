@@ -73,25 +73,22 @@ const logout = (dispatch) => {
  
 const authContext = createContext()
 
-const authProvider = (props) => {
-    const actions = {login, validateLogin}
+const authProvider = (props) => { 
     const [state, dispatch] = useReducer(_authReducer, initialValue)    
     return (
         <authContext.Provider value={
-            {...{'authState': state},  
-             ...{'login': login(dispatch), 
-                 'validateLogin': validateLogin(dispatch)}
+            {'authState': state,  
+             'login': login(dispatch), 
+             'validateLogin': validateLogin(dispatch),
+             'logout': logout(dispatch)
              }}>
             {props.children}
         </authContext.Provider>
     )
-}
+} 
 
-//const temp = {Context: authContext, Provider: authProvider}
-
-//export const {Context, Provider} = temp
+export const {Context, Provider} = {Context: authContext, Provider: authProvider}
  
-const mapContext = MapDataContext(_authReducer, 'authState', {login, validateLogin, logout}, initialValue)
- 
-
-export const {Context, Provider} = mapContext
+//const mapContext = MapDataContext(_authReducer, 'authState', 
+//                                  {login, validateLogin, logout}, initialValue)
+//export const {Context, Provider} = mapContext

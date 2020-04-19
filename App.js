@@ -9,7 +9,7 @@ import BottomTabNavigator from './navigation/BottomTabNavigator';
 import LoginNavigator from './navigation/LoginNavigator';
 import useLinking from './navigation/useLinking';  
 import { navigationRef } from './navigation/RootNavigation';
-import { Context as AuthContext, Provider as AuthProvider } from './contexts/AuthContext'; 
+import { Provider as AuthProvider } from './contexts/AuthContext'; 
 const Stack = createStackNavigator();
   
 export default function App(props) {
@@ -52,7 +52,7 @@ export default function App(props) {
         <View style={styles.container} >
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}  
          <NavigationContainer ref={navigationRef} initialState={initialNavigationState}> 
-            <Stack.Navigator screenOptions={{headerShown: false,}}  >   
+            <Stack.Navigator screenOptions={{headerShown: false}}  >   
               <Stack.Screen name="Login" component={ LoginNavigator } />
               <Stack.Screen name="Main" component={ BottomTabNavigator } />            
             </Stack.Navigator>

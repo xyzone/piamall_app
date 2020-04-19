@@ -1,6 +1,9 @@
+import React, {createContext, useReducer} from 'react'
 import {AsyncStorage} from 'react-native';
 import MapDataContext from './mapDataContext';
 import {navigateTo} from '../navigation/RootNavigation'; 
+import PIAMallApi from '../apis/PIAMallApi';
+import { config_form_data } from '../apis/ApiDataForm'
 import md5 from 'md5';
 const initialValue = {
     is_login: false,
@@ -8,15 +11,16 @@ const initialValue = {
     loginMessage: ''
 }
 
+
 const _authReducer = (state, action) => {
-    console.log(action.payload.is_login)
     switch (action.type) {
         case 'login':
             return {...state, loginMessage: '', is_login: action.payload.is_login, 
-                    authToken: action.payload.authToken}
-            break;
+                    authToken: action.payload.authToken};
+        case 'logout':
+            return {...state, is_login: false, authToken: '', loginMessage: ''};
         case 'show_message':
-            return {...state, loginMessage: action.payload, authToken: ''}        
+            return {...state, loginMessage: action.payload};        
         default:
             break;
     }
@@ -24,20 +28,25 @@ const _authReducer = (state, action) => {
 
 const login = (dispatch) => {
     return(
-        async(username, password, navigation) => { 
-
-            if(username == 'richard'){
-                let token = 'token-12345'
+        async(username, password) => {  
+            console.log('hi here')
+            let form_data = new FormData();
+            form_data.append('username', username)
+            form_data.append('password', password)
+            var api_response = await PIAMallApi.post('/api/api_login_check/', 
+            form_data,  config_form_data)
+            if (api_response.data.result){
+                console.log('token', api_response.data.user_token, api_response.data)
+                let token = api_response.data.user_token
                 dispatch({type: 'login', payload: {is_login: true, authToken: token}})
                 await AsyncStorage.setItem('authToken', token)
-                navigateTo('Main')
-                //navigation.navigate('Main') 
+                navigateTo('Main') 
+
             }else{
                 dispatch({
-                    type: 'show_message', 
-                    payload: ' Failed to login, Email and password is not correct.'})
-            }
-            
+                    type: 'show_message',  
+                    payload: `Failed to login! Message: ${api_response.data.message}`})
+            }   
         }
     )
 }
@@ -63,12 +72,31 @@ const validateLogin = (dispatch) => {
 const logout = (dispatch) => {
     return (
         async () => {
-            await AsyncStorage.setItem('authToken', '') 
+            await AsyncStorage.setItem('authToken', '');
+            dispatch({type: 'logout'}) 
             navigateTo('Login')
         }
     )
 }
+ 
+const authContext = createContext()
 
-const mapContext = MapDataContext(_authReducer, 'authState', {login, validateLogin, logout}, initialValue)
+const authProvider = (props) => { 
+    const [state, dispatch] = useReducer(_authReducer, initialValue)    
+    return (
+        <authContext.Provider value={
+            {'authState': state,  
+             'login': login(dispatch), 
+             'validateLogin': validateLogin(dispatch),
+             'logout': logout(dispatch)
+             }}>
+            {props.children}
+        </authContext.Provider>
+    )
+} 
 
-export const {Context, Provider} = mapContext
+export const {Context, Provider} = {Context: authContext, Provider: authProvider}
+ 
+//const mapContext = MapDataContext(_authReducer, 'authState', 
+//                                  {login, validateLogin, logout}, initialValue)
+//export const {Context, Provider} = mapContext

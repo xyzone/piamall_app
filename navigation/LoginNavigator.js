@@ -7,35 +7,32 @@ import LoginCheckScreen from '../screens/LoginCheckScreen';
 
 const LoginNavi = createStackNavigator();
 const INITIAL_ROUTE_NAME = 'Home';
+LoginNavi.navigationOptions = {
+  headerMode: 'none',
+  header: null,
+  headerLeft: null
+  
+};
 
 export default function LoginNavigator({ navigation, route }) { 
-  navigation.setOptions({ headerTitle: getHeaderTitle(route)  });
   return (
     <LoginNavi.Navigator  initialRouteName={INITIAL_ROUTE_NAME}>
        <LoginNavi.Screen
         name="LoginCheck"
         component={LoginCheckScreen}
         options={{
-          title: 'Login Check',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-home" />,
+          headerTitle: 'Login Redirect',
+          
         }}
       />     
       <LoginNavi.Screen
         name="LoginPanel"
         component={LoginScreen}
         options={{
-          title: 'Login',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-home" />,
+          headerTitle: 'Login Here',
+          headerLeft: null,          
         }}
       />     
     </LoginNavi.Navigator>
   );
-}
-
-function getHeaderTitle(route) {
-  const routeName = route.state?.routes[route.state.index]?.name ?? INITIAL_ROUTE_NAME;
-  switch (routeName) { 
-    case 'Login':
-      return 'Login';
-  }
 }

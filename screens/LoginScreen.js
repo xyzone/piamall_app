@@ -1,13 +1,9 @@
 import { Ionicons } from '@expo/vector-icons';
 import * as WebBrowser from 'expo-web-browser';
 import React, {useState, useContext, useEffect} from 'react'
-import {   StyleSheet,
-    View, 
-    ImageBackground,
-    Dimensions,
-    LayoutAnimation,
-    UIManager,
-    KeyboardAvoidingView, } from 'react-native';
+import {   
+  StyleSheet, View, ImageBackground, Dimensions,
+  LayoutAnimation, UIManager, KeyboardAvoidingView} from 'react-native';
 import { RectButton, ScrollView } from 'react-native-gesture-handler';
 
 import Icon from 'react-native-vector-icons/FontAwesome';

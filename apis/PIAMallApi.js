@@ -5,6 +5,4 @@ const PIAMallApi = axios.create({
 })
 
 
-
-
 export default PIAMallApi

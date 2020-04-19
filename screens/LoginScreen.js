@@ -21,10 +21,10 @@ export default function LoginScreen({navigation}) {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('') 
-    const { authState, login, validateLogin } = useContext(AuthContext)
+    const { authState, login } = useContext(AuthContext)
  
     useEffect( () => {  
-    
+      
     }, [])
 
     return (
@@ -97,12 +97,7 @@ export default function LoginScreen({navigation}) {
         </View>
     )
 }
-
-
-LoginScreen.navigationOptions = {
-    header: null,
-  };
- 
+  
   const styles = StyleSheet.create({
     errorMessage: {
         fontSize: 16,
@@ -115,27 +110,7 @@ LoginScreen.navigationOptions = {
       flex: 1,
     },
 
-
-    rowSelector: {
-      height: 20,
-      flexDirection: 'row',
-      alignItems: 'center',
-    },
-    selectorContainer: {
-      flex: 1,
-      alignItems: 'center',
-    },
-    selected: {
-      position: 'absolute',
-      borderRadius: 50,
-      height: 0,
-      width: 0,
-      top: -5,
-      borderRightWidth: 70,
-      borderBottomWidth: 70,
-      borderColor: 'white',
-      backgroundColor: 'white',
-    },
+ 
     loginContainer: {
         marginTop: 3,
       alignItems: 'center',
@@ -171,34 +146,11 @@ LoginScreen.navigationOptions = {
       fontWeight: 'bold',
       color: 'white',
     },
-    bgImage: {
-      flex: 1,
-      top: 0,
-      left: 0,
-      width: SCREEN_WIDTH,
-      height: SCREEN_HEIGHT,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    categoryText: {
-      textAlign: 'center',
-      color: 'white',
-      fontSize: 24,
-      fontFamily: 'light',
-      backgroundColor: 'transparent',
-      opacity: 0.54,
-    },
-    selectedCategoryText: {
-      opacity: 1,
-    },
+    
     titleText: {
       color: 'white',
       fontSize: 30,
       fontFamily: 'regular',
     },
-    helpContainer: {
-      height: 64,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
+     
   });  

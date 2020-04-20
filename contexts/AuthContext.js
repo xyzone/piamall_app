@@ -1,10 +1,16 @@
 import React, {createContext, useReducer} from 'react'
 import {AsyncStorage} from 'react-native';
+import md5 from 'md5';
+
+
 import MapDataContext from './mapDataContext';
 import {navigateTo} from '../navigation/RootNavigation'; 
 import PIAMallApi from '../apis/PIAMallApi';
 import { config_form_data } from '../apis/ApiDataForm'
-import md5 from 'md5';
+import { capFormData } from '../components/GeneralFunctions'
+
+
+
 const initialValue = {
     is_login: false,
     authToken: '',
@@ -28,13 +34,22 @@ const _authReducer = (state, action) => {
 
 const login = (dispatch) => {
     return(
-        async(username, password) => {  
-            console.log('hi here')
-            let form_data = new FormData();
-            form_data.append('username', username)
-            form_data.append('password', password)
+        async(username, password) => { 
+            if (!username || !password){
+                dispatch({
+                    type: 'show_message',  
+                    payload: 'Failed to login! Message: need input username and password'});
+                return false
+            } 
+            let tmp = ''.concat(new Date().getHours(), new Date().getDate(), username) 
+            const api_security_key = md5(tmp)
+            console.log(tmp, api_security_key)
+            let form_data = capFormData(
+                {username, password, api_security_key}
+            ) 
             var api_response = await PIAMallApi.post('/api/api_login_check/', 
             form_data,  config_form_data)
+
             if (api_response.data.result){
                 console.log('token', api_response.data.user_token, api_response.data)
                 let token = api_response.data.user_token

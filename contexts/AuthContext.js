@@ -1,9 +1,5 @@
 import React, {createContext, useReducer} from 'react'
-import {AsyncStorage} from 'react-native';
-import md5 from 'md5';
-
-
-import MapDataContext from './mapDataContext';
+import {AsyncStorage} from 'react-native';  
 import {navigateTo} from '../navigation/RootNavigation'; 
 import PIAMallApi from '../apis/PIAMallApi';
 import { config_form_data } from '../apis/ApiDataForm'
@@ -41,17 +37,14 @@ const login = (dispatch) => {
                     payload: 'Failed to login! Message: need input username and password'});
                 return false
             } 
-            let tmp = ''.concat(new Date().getHours(), new Date().getDate(), username) 
-            const api_security_key = md5(tmp)
-            console.log(tmp, api_security_key)
+            
             let form_data = capFormData(
-                {username, password, api_security_key}
+                {username, password}
             ) 
-            var api_response = await PIAMallApi.post('/api/api_login_check/', 
+            var api_response = await PIAMallApi.post('/api/api_login/', 
             form_data,  config_form_data)
 
-            if (api_response.data.result){
-                console.log('token', api_response.data.user_token, api_response.data)
+            if (api_response.data.result){ 
                 let token = api_response.data.user_token
                 dispatch({type: 'login', payload: {is_login: true, authToken: token}})
                 await AsyncStorage.setItem('authToken', token)
@@ -66,18 +59,28 @@ const login = (dispatch) => {
     )
 }
 
+
 const validateLogin = (dispatch) => {
     return (
         async () => {
             const token = await AsyncStorage.getItem('authToken')
-            if (token != '')
+            if (token)
             {
-                console.log('before', token)
-                dispatch({type: 'login', payload: {is_login: true, authToken: token}})
-                console.log('after', token)
-                return token 
+                let form_data = capFormData(
+                    {user_token: token}                ) 
+                var api_response = await PIAMallApi.post('/api/api_login_check/', form_data, config_form_data)
+                console.log('login check')
+                console.log(form_data)
+                console.log(api_response.data)
+                if (api_response.data.result){
+                    dispatch({type: 'login', payload: {is_login: true, authToken: token}})
+                    navigateTo('Main')
+                }else{
+                    dispatch({type: 'logout'}) 
+                    navigateTo('LoginPanel')
+                } 
             }else{
-                return ''
+                navigateTo('LoginPanel')
             }
             
         }
@@ -89,7 +92,7 @@ const logout = (dispatch) => {
         async () => {
             await AsyncStorage.setItem('authToken', '');
             dispatch({type: 'logout'}) 
-            navigateTo('Login')
+            navigateTo('LoginPanel')
         }
     )
 }

@@ -5,16 +5,17 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { SliderBox } from "react-native-image-slider-box";
 
 import Image from 'react-native-scalable-image';
- 
 import { MonoText } from '../components/StyledText';
-
 import { Button, ThemeProvider, Text } from 'react-native-elements';
-export default function HomeScreen({navigation}) {
 
+import {Context as AuthContext} from '../contexts/AuthContext'
+
+export default function HomeScreen({navigation}) {
+  const { authState, login, validateLogin } = React.useContext(AuthContext)
   const [banners, setBanners] = React.useState([])
 
   React.useEffect(() => {
-
+    validateLogin()
     setBanners(
       [
         "https://www.cportal.com.au/static/shoppingcart/images/banner1.png",
@@ -22,10 +23,7 @@ export default function HomeScreen({navigation}) {
         "https://www.cportal.com.au/static/shoppingcart/images/banner3.png"
       ]
     )
-  
-
-  }, [])
- 
+  }, []) 
 
   return (
     <View style={styles.container}>

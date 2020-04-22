@@ -6,13 +6,8 @@ import LoginScreen from '../screens/LoginScreen';
 import LoginCheckScreen from '../screens/LoginCheckScreen';  
 
 const LoginNavi = createStackNavigator();
-const INITIAL_ROUTE_NAME = 'Home';
-LoginNavi.navigationOptions = {
-  headerMode: 'none',
-  header: null,
-  headerLeft: null
-  
-};
+const INITIAL_ROUTE_NAME = 'Login Home';
+ 
 
 export default function LoginNavigator({ navigation, route }) { 
   return (

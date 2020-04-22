@@ -69,9 +69,7 @@ const validateLogin = (dispatch) => {
                 let form_data = capFormData(
                     {user_token: token}                ) 
                 var api_response = await PIAMallApi.post('/api/api_login_check/', form_data, config_form_data)
-                console.log('login check')
-                console.log(form_data)
-                console.log(api_response.data)
+               
                 if (api_response.data.result){
                     dispatch({type: 'login', payload: {is_login: true, authToken: token}})
                     navigateTo('Main')

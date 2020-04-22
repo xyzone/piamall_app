@@ -5,10 +5,10 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { SliderBox } from "react-native-image-slider-box";
 
 import Image from 'react-native-scalable-image';
-import { MonoText } from '../components/StyledText';
+import { MonoText } from '../../components/StyledText';
 import { Button, ThemeProvider, Text } from 'react-native-elements';
 
-import {Context as AuthContext} from '../contexts/AuthContext'
+import {Context as AuthContext} from '../../contexts/AuthContext'
 
 export default function HomeScreen({navigation}) {
   const { authState, login, validateLogin } = React.useContext(AuthContext)
@@ -106,7 +106,7 @@ being a loyal customer</Text>
                 containerStyle={{ flex: -1 }}
                 buttonStyle={styles.button} 
                 titleStyle={styles.textButton} 
-                onPress={()=>{navigation.navigate('ShoppingCart')}}
+                onPress={()=>{navigation.navigate('CategorySreen')}}
             /> 
         
         </View>

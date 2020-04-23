@@ -10,15 +10,19 @@ export function capFormData(data_dict){
         form_data.append(key, data_dict[key])
     }
     let tmp = ''.concat(new Date().getHours(), new Date().getDate()) 
-     // getizp+KHRe+eEWnUsEdHg==,  81EB62CE9F8A1D17BE7845A752C11D1E
+     // getizp+KHRe+eEWnUsEdHg==,getizp+KHRe+eEWnUsEdHg==  81EB62CE9F8A1D17BE7845A752C11D1E
     const api_security_key = md5(tmp)
     form_data.append('api_security_key', api_security_key) 
     const secretData = '123456'   
-    var key  = CryptoJS.enc.Hex.parse("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-    var iv   = CryptoJS.enc.Hex.parse("AAAAAAAAAAAAAAAA");
-    //var key  = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-    //var iv   = "00000000000000000000000000000000";
-    let ciphertext = CryptoJS.AES.encrypt(secretData, key, { iv: iv });
+    //var key  = CryptoJS.enc.Hex.parse("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    //var iv   = CryptoJS.enc.Hex.parse("AAAAAAAAAAAAAAAA");
+    //var key = CryptoJS.enc.Base64.parse("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    //var iv  = CryptoJS.enc.Base64.parse("AAAAAAAAAAAAAAAA");
+    console.log(key, iv)
+    var key  = CryptoJS.enc.Utf8.parse("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    var iv   = CryptoJS.enc.Utf8.parse("AAAAAAAAAAAAAAAA");
+    let ciphertext = CryptoJS.AES.encrypt(secretData, key, 
+        { iv: iv,  mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7});
     // ciphertext = CryptoJS.AES.encrypt(secretData, key, {iv: iv, padding: CryptoJS.pad.NoPadding});
  
     console.log({ciphertext: ciphertext.ciphertext.toString(), iv: ciphertext.iv.toString(), key: ciphertext.key.toString()})

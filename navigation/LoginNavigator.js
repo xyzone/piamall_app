@@ -24,7 +24,7 @@ export default function LoginNavigator({ navigation, route }) {
         name="LoginPanel"
         component={LoginScreen}
         options={{
-          headerTitle: 'Login Here',
+          headerTitle: 'PIA Mall Login',
           headerLeft: null,          
         }}
       />     

@@ -1,37 +1,41 @@
-import md5 from 'md5';
-import JSEncrypt from 'jsencrypt';
+import md5 from 'md5'; 
 import CryptoJS from 'react-native-crypto-js';
-
  
+//var iv = CryptoJS.enc.Hex.parse("AAAAAAAAAAAAAAAA");
+//var key = CryptoJS.enc.Base64.parse("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+var AES_key = CryptoJS.enc.Utf8.parse('+q@5V{ED/Ct$d7v}');  
+
+function encrypt(msgString, key) {
+    // msgString is expected to be Utf8 encoded
+    var iv = CryptoJS.lib.WordArray.random(16);
+    var encrypted = CryptoJS.AES.encrypt(msgString, key, 
+        { iv: iv,  mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7});
+    return iv.concat(encrypted.ciphertext).toString(CryptoJS.enc.Base64);
+}
+
+function decrypt(ciphertextStr, key) {
+    var ciphertext = CryptoJS.enc.Base64.parse(ciphertextStr);
+
+    // split IV and ciphertext
+    var iv = ciphertext.clone();
+    iv.sigBytes = 16;
+    iv.clamp();
+    ciphertext.words.splice(0, 4); // delete 4 words = 16 bytes
+    ciphertext.sigBytes -= 16;
+
+    // decryption
+    var decrypted = CryptoJS.AES.decrypt({ciphertext: ciphertext}, key, {
+        iv: iv
+    });
+    return decrypted.toString(CryptoJS.enc.Utf8);
+}
  
 export function capFormData(data_dict){ 
-    let form_data = new FormData();
-    for(var key in data_dict){
-        form_data.append(key, data_dict[key])
-    }
-    let tmp = ''.concat(new Date().getHours(), new Date().getDate()) 
-     // getizp+KHRe+eEWnUsEdHg==,getizp+KHRe+eEWnUsEdHg==  81EB62CE9F8A1D17BE7845A752C11D1E
-    const api_security_key = md5(tmp)
-    form_data.append('api_security_key', api_security_key) 
-    const secretData = '123456'   
-    //var key  = CryptoJS.enc.Hex.parse("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-    //var iv   = CryptoJS.enc.Hex.parse("AAAAAAAAAAAAAAAA");
-    //var key = CryptoJS.enc.Base64.parse("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-    //var iv  = CryptoJS.enc.Base64.parse("AAAAAAAAAAAAAAAA");
-    console.log(key, iv)
-    var key  = CryptoJS.enc.Utf8.parse("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-    var iv   = CryptoJS.enc.Utf8.parse("AAAAAAAAAAAAAAAA");
-    let ciphertext = CryptoJS.AES.encrypt(secretData, key, 
-        { iv: iv,  mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7});
-    // ciphertext = CryptoJS.AES.encrypt(secretData, key, {iv: iv, padding: CryptoJS.pad.NoPadding});
- 
-    console.log({ciphertext: ciphertext.ciphertext.toString(), iv: ciphertext.iv.toString(), key: ciphertext.key.toString()})
-
-
-    let bytes  = CryptoJS.AES.decrypt(ciphertext.toString(), key, { iv: iv });
-    let originalText = bytes.toString(CryptoJS.enc.Utf8);
-    console.log(ciphertext.toString(), originalText)
-
-    form_data.append('test_key', ciphertext) 
+    let form_data = new FormData(); 
+    let data = JSON.stringify(data_dict) 
+    const api_encrypt_data = encrypt(data, AES_key)
+    console.log(api_encrypt_data)
+    form_data.append('api_encrypt_data', api_encrypt_data) 
     return form_data
 }
+

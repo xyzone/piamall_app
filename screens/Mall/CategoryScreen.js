@@ -17,8 +17,8 @@ import { Context as AuthContext, Provider as AuthProvider } from '../../contexts
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 
-export default function LoginScreen({navigation}) { 
-    const { authState, login, validateLogin } = useContext(AuthContext)
+export default function LoginScreen({ navigation }) { 
+    const { validateLogin } = useContext(AuthContext)
   
     useEffect( () => {  
       validateLogin()

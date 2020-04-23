@@ -56,7 +56,7 @@ being a loyal customer</Text>
           <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
             <Text style={styles.codeHighlightText}>   
               
-              Our 'points+cash' system allows you to check out simply and securely and track your points balance. Remember, the more properties you have, the more points you can earn with PIA and the more you can save.
+              Our points+cash system allows you to check out simply and securely and track your points balance. Remember, the more properties you have, the more points you can earn with PIA and the more you can save.
               </Text>
           </View>
 
@@ -74,7 +74,7 @@ being a loyal customer</Text>
           <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
             <Text style={styles.codeHighlightText}>   
               
-              Our 'points+cash' system allows you to check out simply and securely and track your points balance. Remember, the more properties you have, the more points you can earn with PIA and the more you can save.
+              Our points+cash system allows you to check out simply and securely and track your points balance. Remember, the more properties you have, the more points you can earn with PIA and the more you can save.
               </Text>
           </View>
 
@@ -93,7 +93,7 @@ being a loyal customer</Text>
           <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
             <Text style={styles.codeHighlightText}>   
               
-              Our 'points+cash' system allows you to check out simply and securely and track your points balance. Remember, the more properties you have, the more points you can earn with PIA and the more you can save.
+              Our points+cash system allows you to check out simply and securely and track your points balance. Remember, the more properties you have, the more points you can earn with PIA and the more you can save.
               </Text>
           </View>
 

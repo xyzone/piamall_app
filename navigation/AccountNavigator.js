@@ -1,7 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react';
-
-import TabBarIcon from '../components/TabBarIcon'; 
+ 
 import AccountScreen from '../screens/Account/AccountScreen';  
 
 const AccountNavi = createStackNavigator();
@@ -13,7 +12,7 @@ AccountNavi.navigationOptions = {
   
 };
 
-export default function AccountNavigator({ navigation, route }) { 
+export default function AccountNavigator() { 
   return (
     <AccountNavi.Navigator  initialRouteName={INITIAL_ROUTE_NAME}>
        <AccountNavi.Screen
@@ -21,7 +20,6 @@ export default function AccountNavigator({ navigation, route }) {
         component={AccountScreen}
         options={{
           headerTitle: 'AccountScreen',
-          
         }}
       />     
        

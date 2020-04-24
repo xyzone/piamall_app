@@ -1,17 +1,15 @@
 import * as WebBrowser from 'expo-web-browser';
 import * as React from 'react';
-import { Platform, StyleSheet,  TouchableOpacity, View, Dimensions, } from 'react-native';
+import { Platform, StyleSheet, View, Dimensions, } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SliderBox } from "react-native-image-slider-box";
-
-import Image from 'react-native-scalable-image';
-import { MonoText } from '../../components/StyledText';
-import { Button, ThemeProvider, Text } from 'react-native-elements';
+ 
+import { Button, Text } from 'react-native-elements';
 
 import {Context as AuthContext} from '../../contexts/AuthContext'
 
 export default function HomeScreen({navigation}) {
-  const { authState, login, validateLogin } = React.useContext(AuthContext)
+  const { validateLogin } = React.useContext(AuthContext)
   const [banners, setBanners] = React.useState([])
 
   React.useEffect(() => {

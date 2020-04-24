@@ -2,7 +2,7 @@
 import React from 'react'; 
 import { Ionicons } from '@expo/vector-icons';
 import * as WebBrowser from 'expo-web-browser'; 
-import { StyleSheet, Text, View, Button, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import { RectButton, ScrollView } from 'react-native-gesture-handler';
 
 import { Context as AuthContext } from '../../contexts/AuthContext'; 

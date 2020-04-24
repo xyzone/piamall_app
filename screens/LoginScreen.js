@@ -1,10 +1,6 @@
-import { Ionicons } from '@expo/vector-icons';
-import * as WebBrowser from 'expo-web-browser';
-import React, {useState, useContext, useEffect} from 'react'
+import * as React from 'react'
 import {   
-  StyleSheet, View, ImageBackground, Dimensions,
-  LayoutAnimation, UIManager, KeyboardAvoidingView} from 'react-native';
-import { RectButton, ScrollView } from 'react-native-gesture-handler';
+  StyleSheet, View, Dimensions, KeyboardAvoidingView} from 'react-native'; 
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input } from 'react-native-elements';
@@ -15,11 +11,11 @@ const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 export default function LoginScreen({navigation}) {
 
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('') 
-    const { authState, login } = useContext(AuthContext)
+    const [username, setUsername] = React.useState('')
+    const [password, setPassword] = React.useState('') 
+    const { authState, login } = React.useContext(AuthContext)
  
-    useEffect( () => {  
+    React.useEffect( () => {  
       
     }, [])
 

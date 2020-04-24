@@ -1,7 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react';
-
-import TabBarIcon from '../components/TabBarIcon'; 
+ 
 import CartScreen from '../screens/Cart/CartScreen';   
 import CheckoutScreen from '../screens/Cart/CheckoutScreen';   
 

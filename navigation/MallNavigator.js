@@ -1,7 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react';
-
-import TabBarIcon from '../components/TabBarIcon';
+ 
 import HomeScreen from '../screens/Mall/HomeScreen';  
 import CategoryScreen from '../screens/Mall/CategoryScreen';  
 import ProductScreen from '../screens/Mall/ProductScreen';  

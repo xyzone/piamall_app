@@ -13,7 +13,7 @@ OrderNavi.navigationOptions = {
   
 };
 
-export default function OrderNavigator({ navigation, route }) { 
+export default function OrderNavigator() { 
   return (
     <OrderNavi.Navigator  initialRouteName={INITIAL_ROUTE_NAME}>
        <OrderNavi.Screen

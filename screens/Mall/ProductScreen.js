@@ -12,7 +12,7 @@ export default function LoginScreen({navigation}) {
     }, []) 
     return (
         <View style={styles.container}>  
-            <Text>Product Screen....</Text>
+            <Text>Product Detail....</Text>
             <Button  
                 title="Add to cart!"
                 containerStyle={{ flex: -1 }}

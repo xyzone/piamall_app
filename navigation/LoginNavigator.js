@@ -7,10 +7,19 @@ import LoginCheckScreen from '../screens/LoginCheckScreen';
 const LoginNavi = createStackNavigator();
 const INITIAL_ROUTE_NAME = 'Login Home';
  
+LoginNavi.navigationOptions = {
+  headerMode: 'none',
+  header: null,
+  headerLeft: null  
+};
 
-export default function LoginNavigator({ navigation, route }) { 
+export default function LoginNavigator() { 
   return (
-    <LoginNavi.Navigator  initialRouteName={INITIAL_ROUTE_NAME}>
+    <LoginNavi.Navigator  initialRouteName={INITIAL_ROUTE_NAME}
+      screenOptions={{
+        headerShown: false
+      }}
+    >
        <LoginNavi.Screen
         name="LoginCheck"
         component={LoginCheckScreen}

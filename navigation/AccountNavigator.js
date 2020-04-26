@@ -8,8 +8,7 @@ const INITIAL_ROUTE_NAME = 'Accout Home';
 AccountNavi.navigationOptions = {
   headerMode: 'none',
   header: null,
-  headerLeft: null
-  
+  headerLeft: null  
 };
 
 export default function AccountNavigator() { 

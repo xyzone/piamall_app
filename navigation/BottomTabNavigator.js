@@ -16,8 +16,8 @@ export default function BottomTabNavigator({ navigation, route }) {
   navigation.setOptions({ headerTitle: getHeaderTitle(route) });
 
   return (
-    <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
-      <BottomTab.Screen
+    <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME} >
+      <BottomTab.Screen 
         name="Mall"
         component={MallNavigator}
         options={{

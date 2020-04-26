@@ -1,100 +1,96 @@
 import * as WebBrowser from 'expo-web-browser';
 import * as React from 'react';
-import { Platform, StyleSheet, View, Dimensions, } from 'react-native';
+import { Platform, StyleSheet, View, Dimensions,FlatList, TouchableOpacity } from 'react-native';
+import Image from 'react-native-scalable-image';
 import { ScrollView } from 'react-native-gesture-handler';
-import { SliderBox } from "react-native-image-slider-box";
- 
-import { Button, Text } from 'react-native-elements';
-
-import {Context as AuthContext} from '../../contexts/AuthContext'
+import { SliderBox } from "react-native-image-slider-box"; 
+import { SearchBar, ListItem, Header } from 'react-native-elements';
+import { Text, Button, Block, NavBar, Icon } from 'galio-framework'
+import { Context as AuthContext } from '../../contexts/AuthContext';
+import { DemoProudcts, DemoCategories } from '../../contexts/TestData';
+import theme from '../../constants/Themes';
 
 export default function HomeScreen({navigation}) {
   const { validateLogin } = React.useContext(AuthContext)
-  const [banners, setBanners] = React.useState([])
-
+  const [banners, setBanners] = React.useState([]) 
+  const [featureProducts, setFeatureProducts] = React.useState([])
+  const [keywords, setKeywords] = React.useState('')
   React.useEffect(() => {
     validateLogin()
+    
+  }, []) 
+
+  React.useEffect(() => { 
     setBanners(
       [
         "https://www.cportal.com.au/static/shoppingcart/images/banner1.png",
         "https://www.cportal.com.au/static/shoppingcart/images/banner2.png",
         "https://www.cportal.com.au/static/shoppingcart/images/banner3.png"
       ]
-    )
-  }, []) 
+    );
+  }, [] ) 
 
-  return (
-    <View style={styles.container}>
+  function searchKeyword(){
 
-      <View style={styles.tabTopContainer}>
-        <Text style={styles.tabBarInfoText}>PIA Mall Home</Text>       
-      </View>
 
-      <ScrollView   contentContainerStyle={styles.contentContainer}>
+  }
+
+  const renderCategory = ({ item }) => {
+     
+    return (
+    <ListItem
+      title={item.category_name}
+      subtitle={item.category_name}
+      leftAvatar={{
+        source: item.avatar_url && { uri: item.avatar_url },
+        title: item.category_name
+      }}
+      bottomDivider
+      chevron
+    />)
+  }
+
+  const temp = () => {
+    return (
+      <View>
+      <Header
+        placement="left"
+        leftComponent={{ icon: 'menu', color: '#fff' }}
+        centerComponent={{ text: 'MY TITLE', style: { color: '#fff' } }}
+        rightComponent={{ icon: 'home', color: '#fff' }}
+      />
+      <View>
+        < Text p muted >
+                Hi, I'm a Galio component
+        </ Text>
+      </View> 
+      <View>
+            <SearchBar
+              placeholder="Search Products ..."
+              onChangeText={(val) => {setKeywords(val)}}
+              value={keywords}
+            
+          />
+        </View>
+      <ScrollView  contentContainerStyle={styles.contentContainer}>
+        
+
         <View> 
           <SliderBox images={banners}  
            autoplay circleLoop
            sliderBoxHeight={180}
            />
+
         </View>
 
-        <View style={styles.getStartedContainer}>
-          
-        <Text style={styles.getStartedText}>Earn loyalty points just by
-being a loyal customer</Text>
-
-          <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-            <Text style={styles.codeHighlightText}>
-              Discover exclusive offers that we have selected for you from our participating partners. 
-               
-              Use your points to purchase vouchers, gift cards, services and lifestyle offers to save at your favourite retailers.
-              </Text>
-          </View>
-
-          <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-            <Text style={styles.codeHighlightText}>   
-              
-              Our points+cash system allows you to check out simply and securely and track your points balance. Remember, the more properties you have, the more points you can earn with PIA and the more you can save.
-              </Text>
-          </View>
-
-          <Text style={styles.getStartedText}>Earn loyalty points just by
-being a loyal customer</Text>
-
-          <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-            <Text style={styles.codeHighlightText}>
-              Discover exclusive offers that we have selected for you from our participating partners. 
-               
-              Use your points to purchase vouchers, gift cards, services and lifestyle offers to save at your favourite retailers.
-              </Text>
-          </View>
-
-          <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-            <Text style={styles.codeHighlightText}>   
-              
-              Our points+cash system allows you to check out simply and securely and track your points balance. Remember, the more properties you have, the more points you can earn with PIA and the more you can save.
-              </Text>
-          </View>
-
-
-          <Text style={styles.getStartedText}>Earn loyalty points just by
-being a loyal customer</Text>
-
-          <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-            <Text style={styles.codeHighlightText}>
-              Discover exclusive offers that we have selected for you from our participating partners. 
-               
-              Use your points to purchase vouchers, gift cards, services and lifestyle offers to save at your favourite retailers.
-              </Text>
-          </View>
-
-          <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-            <Text style={styles.codeHighlightText}>   
-              
-              Our points+cash system allows you to check out simply and securely and track your points balance. Remember, the more properties you have, the more points you can earn with PIA and the more you can save.
-              </Text>
-          </View>
-
+        
+        <View>
+            <Text>Shop by Departments</Text>
+            <FlatList
+              keyExtractor={item => item.id}
+              data={DemoCategories}
+              renderItem={renderCategory}
+            />
         </View>
 
         <View style={styles.helpContainer}>
@@ -111,8 +107,63 @@ being a loyal customer</Text>
 
 
       </ScrollView>
+      </View>
+    )
+  }
 
-     
+  return (
+    <View > 
+      <Block safe flex>
+        <NavBar
+          title="Confirmed Order"
+          left={(
+            <TouchableOpacity onPress={() => navigation.openDrawer()}>
+              <Icon 
+                name="menu"
+                family="feather"
+                size={theme.SIZES.BASE}
+                color={theme.COLORS.ICON}
+              />
+            </TouchableOpacity>
+          )}
+          style={Platform.OS === 'android' ? { marginTop: theme.SIZES.BASE } : null}
+        />
+        <Block flex center space="around" style={styles.container}>
+          <Block center flex={2}>
+            <Block center style={{ marginBottom: theme.SIZES.BASE * 2 }}>
+               
+              <Text h4 color={theme.COLORS.BLACK}>
+                Well done!
+              </Text>
+            </Block>
+            <Text
+              color={theme.COLORS.BLACK}
+              style={{ marginBottom: theme.SIZES.BASE }}
+            >
+              <Text
+                size={theme.SIZES.FONT * 1.675}
+                bold
+              >
+                #45C23B&nbsp;
+              </Text>
+              <Text >
+                is your order number
+              </Text>
+            </Text>
+            <Text color={theme.COLORS.INFO}>
+              Track your order
+            </Text>
+          </Block>
+          <Button size="large" color="info" round onPress={() => navigation.openDrawer()}>
+            Continue Shopping
+          </Button>
+        </Block>
+      </Block>
+
+      
+
+
+
     </View>
   );
 }

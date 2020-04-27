@@ -49,70 +49,9 @@ export default function HomeScreen({navigation}) {
       chevron
     />)
   }
-
-  const temp = () => {
-    return (
-      <View>
-      <Header
-        placement="left"
-        leftComponent={{ icon: 'menu', color: '#fff' }}
-        centerComponent={{ text: 'MY TITLE', style: { color: '#fff' } }}
-        rightComponent={{ icon: 'home', color: '#fff' }}
-      />
-      <View>
-        < Text p muted >
-                Hi, I'm a Galio component
-        </ Text>
-      </View> 
-      <View>
-            <SearchBar
-              placeholder="Search Products ..."
-              onChangeText={(val) => {setKeywords(val)}}
-              value={keywords}
-            
-          />
-        </View>
-      <View  contentContainerStyle={styles.contentContainer}>
-        
-
-        <View> 
-          <SliderBox images={banners}  
-           autoplay circleLoop
-           sliderBoxHeight={180}
-           />
-
-        </View>
-
-        
-        <View>
-            <Text>Shop by Departments</Text>
-            <FlatList
-              keyExtractor={item => item.id}
-              data={DemoCategories}
-              renderItem={renderCategory}
-            />
-        </View>
-
-        <View style={styles.helpContainer}>
-           
-          <Button  
-                title="Go Shopping Now !"
-                containerStyle={{ flex: -1 }}
-                buttonStyle={styles.button} 
-                titleStyle={styles.textButton} 
-                onPress={()=>{navigation.navigate('CategorySreen')}}
-            /> 
-        
-        </View>
-
-
-      </View>
-      </View>
-    )
-  }
-
+ 
   return (
-    <View >  
+    <View  style={{flex: 1}}>  
         <NavBar
           title="Confirmed Order"
           left={(
@@ -126,54 +65,40 @@ export default function HomeScreen({navigation}) {
             </TouchableOpacity>
           )}
           style={Platform.OS === 'android' ? { marginTop: theme.SIZES.BASE } : null}
-        />
-         
-      <View>
-        <Text p muted >
-                Hi, I'm a Galio component
-        </Text>
-      </View> 
-      <View>
+        /> 
+       
             <SearchBar
               placeholder="Search Products ..."
               onChangeText={(val) => {setKeywords(val)}}
               value={keywords}
             
           />
-        </View>
-     <SafeAreaView style={styles.safe_container}>  
-      <ScrollView contentContainerStyle={styles.contentContainer}>
-
-        <View> 
+       
           <SliderBox images={banners}  
            autoplay circleLoop
            sliderBoxHeight={180}
            />
 
-        </View>
-
-        
-        
+      
             <Text>Shop by Departments</Text>
             <FlatList
               keyExtractor={item => item.id.toString()}
               data={DemoCategories}
               renderItem={renderCategory}
+              
+              contentContainerStyle={{
+                flexGrow: 1,
+                }}
             />
         
-
-        <View style={styles.helpContainer}>
-           
-          <Button  
-                title="Go Shopping Now !"
-                containerStyle={{ flex: -1 }}
+          <Button    
                 buttonStyle={styles.button} 
                 titleStyle={styles.textButton} 
-                onPress={()=>{navigation.navigate('CategorySreen')}}
-            /> 
-        </View> 
-      </ScrollView>
-      </SafeAreaView>
+                onPress={()=>{navigation.navigate('CategorySreen')}}  >Go Shopping Now </Button>
+        
+        
+        
+            
       </View>
  
   );

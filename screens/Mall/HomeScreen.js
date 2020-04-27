@@ -1,6 +1,6 @@
 import * as WebBrowser from 'expo-web-browser';
 import * as React from 'react';
-import { Platform, StyleSheet, View, Dimensions,FlatList, TouchableOpacity } from 'react-native';
+import { Platform, StyleSheet, View, Dimensions,FlatList, TouchableOpacity, SafeAreaView } from 'react-native';
 import Image from 'react-native-scalable-image';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SliderBox } from "react-native-image-slider-box"; 
@@ -72,7 +72,7 @@ export default function HomeScreen({navigation}) {
             
           />
         </View>
-      <ScrollView  contentContainerStyle={styles.contentContainer}>
+      <View  contentContainerStyle={styles.contentContainer}>
         
 
         <View> 
@@ -106,14 +106,13 @@ export default function HomeScreen({navigation}) {
         </View>
 
 
-      </ScrollView>
+      </View>
       </View>
     )
   }
 
   return (
-    <View > 
-      <Block safe flex>
+    <View >  
         <NavBar
           title="Confirmed Order"
           left={(
@@ -128,43 +127,55 @@ export default function HomeScreen({navigation}) {
           )}
           style={Platform.OS === 'android' ? { marginTop: theme.SIZES.BASE } : null}
         />
-        <Block flex center space="around" style={styles.container}>
-          <Block center flex={2}>
-            <Block center style={{ marginBottom: theme.SIZES.BASE * 2 }}>
-               
-              <Text h4 color={theme.COLORS.BLACK}>
-                Well done!
-              </Text>
-            </Block>
-            <Text
-              color={theme.COLORS.BLACK}
-              style={{ marginBottom: theme.SIZES.BASE }}
-            >
-              <Text
-                size={theme.SIZES.FONT * 1.675}
-                bold
-              >
-                #45C23B&nbsp;
-              </Text>
-              <Text >
-                is your order number
-              </Text>
-            </Text>
-            <Text color={theme.COLORS.INFO}>
-              Track your order
-            </Text>
-          </Block>
-          <Button size="large" color="info" round onPress={() => navigation.openDrawer()}>
-            Continue Shopping
-          </Button>
-        </Block>
-      </Block>
+         
+      <View>
+        <Text p muted >
+                Hi, I'm a Galio component
+        </Text>
+      </View> 
+      <View>
+            <SearchBar
+              placeholder="Search Products ..."
+              onChangeText={(val) => {setKeywords(val)}}
+              value={keywords}
+            
+          />
+        </View>
+     <SafeAreaView style={styles.safe_container}>  
+      <ScrollView contentContainerStyle={styles.contentContainer}>
 
-      
+        <View> 
+          <SliderBox images={banners}  
+           autoplay circleLoop
+           sliderBoxHeight={180}
+           />
 
+        </View>
 
+        
+        
+            <Text>Shop by Departments</Text>
+            <FlatList
+              keyExtractor={item => item.id.toString()}
+              data={DemoCategories}
+              renderItem={renderCategory}
+            />
+        
 
-    </View>
+        <View style={styles.helpContainer}>
+           
+          <Button  
+                title="Go Shopping Now !"
+                containerStyle={{ flex: -1 }}
+                buttonStyle={styles.button} 
+                titleStyle={styles.textButton} 
+                onPress={()=>{navigation.navigate('CategorySreen')}}
+            /> 
+        </View> 
+      </ScrollView>
+      </SafeAreaView>
+      </View>
+ 
   );
 }
 
@@ -187,7 +198,13 @@ const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
-
+  safe_container: {
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "stretch",
+    paddingVertical: 50
+  },
   textButton: {
     fontSize: 14,
     color: 'white',
@@ -215,6 +232,7 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     paddingTop: 10,
+    paddingBottom: 50
   },
   welcomeContainer: {
     alignItems: 'center',

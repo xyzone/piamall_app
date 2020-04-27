@@ -44,7 +44,7 @@ export default function App(props) {
   }, []);
 
 
-
+ // <Stack.Screen name="Main" component={ BottomTabNavigator } />     
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return null;
   } else {
@@ -53,12 +53,9 @@ export default function App(props) {
         <View style={styles.container} >
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}  
          <NavigationContainer ref={navigationRef} initialState={initialNavigationState}> 
-           
-            
             <Stack.Navigator screenOptions={{headerShown: false}}  >   
               <Stack.Screen name="Login" component={ LoginNavigator } />
-              <Stack.Screen name="Main" component={ BottomTabNavigator } />     
-              <Stack.Screen name="Menu" component={MenuNavigator} />       
+              <Stack.Screen name="Main" component={ MenuNavigator } />   
             </Stack.Navigator>
           </NavigationContainer>
         </View>

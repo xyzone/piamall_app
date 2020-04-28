@@ -52,26 +52,36 @@ export default function HomeScreen({navigation}) {
  
   return (
     <View  style={{flex: 1}}>  
-        <NavBar
-          title="Confirmed Order"
-          left={(
-            <TouchableOpacity onPress={() => navigation.openDrawer()}>
+        <Block  >
+          <NavBar
+            title="Mall"
+            left={(
+              <TouchableOpacity onPress={() => navigation.openDrawer()}>
+                <Icon 
+                  name="menu"
+                  family="feather"
+                  size={theme.SIZES.BASE}
+                  color={theme.COLORS.ICON}
+                />
+              </TouchableOpacity>
+            )}
+            right= {(
+              <TouchableOpacity onPress={() => navigation.navigate('Shopping Cart')}>
               <Icon 
-                name="menu"
+                name="shopping-cart"
                 family="feather"
                 size={theme.SIZES.BASE}
                 color={theme.COLORS.ICON}
               />
             </TouchableOpacity>
-          )}
-          style={Platform.OS === 'android' ? { marginTop: theme.SIZES.BASE } : null}
-        /> 
-       
+            )} 
+            style={Platform.OS === 'android' ? { marginTop: theme.SIZES.BASE } : null}
+          /> 
+       </Block>
             <SearchBar
               placeholder="Search Products ..."
               onChangeText={(val) => {setKeywords(val)}}
-              value={keywords}
-            
+              value={keywords} 
           />
        
           <SliderBox images={banners}  
@@ -84,11 +94,11 @@ export default function HomeScreen({navigation}) {
             <FlatList
               keyExtractor={item => item.id.toString()}
               data={DemoCategories}
-              renderItem={renderCategory}
-              
+              renderItem={renderCategory} 
               contentContainerStyle={{
-                flexGrow: 1,
+                flexGrow: 1, 
                 }}
+              
             />
         
           <Button    
@@ -123,6 +133,7 @@ const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
+   
   safe_container: {
     flex: 1,
     flexDirection: "column",

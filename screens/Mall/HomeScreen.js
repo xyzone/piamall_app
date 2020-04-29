@@ -10,18 +10,32 @@ import { Context as AuthContext } from '../../contexts/AuthContext';
 import { DemoProudcts, DemoCategories } from '../../contexts/TestData';
 import  NavbarScreen  from '../NavbarScreen'
 import theme from '../../constants/Themes';
+import { GetCategoryList } from '../../apis/PIAMallApi'
 
 export default function HomeScreen({navigation}) {
   const { validateLogin } = React.useContext(AuthContext)
   const [banners, setBanners] = React.useState([]) 
   const [featureProducts, setFeatureProducts] = React.useState([])
   const [keywords, setKeywords] = React.useState('')
+
+  async function getCategory(){
+    let category_list = await GetCategoryList()
+    console.log(category_list)
+  }
+
+
   React.useEffect(() => {
     validateLogin()
     
+    
   }, []) 
+  React.useEffect(() => {
+   
 
+    getCategory()
+  })
   React.useEffect(() => { 
+    
     setBanners(
       [
         "https://www.cportal.com.au/static/shoppingcart/images/banner1.png",
@@ -78,7 +92,10 @@ export default function HomeScreen({navigation}) {
                 }}
               
             />
-        
+          <Button    
+                buttonStyle={styles.button} 
+                titleStyle={styles.textButton} 
+                onPress={()=>{getCategory()}}  >Refresh </Button>
           <Button    
                 buttonStyle={styles.button} 
                 titleStyle={styles.textButton} 

@@ -28,11 +28,11 @@ export function decrypt(ciphertextStr, key=AES_key) {
     return decrypted.toString(CryptoJS.enc.Utf8);
 }
  
-export function capFormData(data_dict){ 
+export function capPostData(data_dict){ 
     let form_data = new FormData(); 
     let data = JSON.stringify(data_dict) 
     const api_encrypt_data = encrypt(data) 
     form_data.append('api_encrypt_data', api_encrypt_data) 
     return form_data
 }
-
+ 

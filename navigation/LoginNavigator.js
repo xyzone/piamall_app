@@ -1,8 +1,8 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react';
  
-import LoginScreen from '../screens/LoginScreen';  
-import LoginCheckScreen from '../screens/LoginCheckScreen';  
+import LoginCheckScreen from '../screens/LoginCheckScreen';   
+import LoginScreen from '../screens/LoginScreen';   
 
 const LoginNavi = createStackNavigator();
 const INITIAL_ROUTE_NAME = 'Login Home';
@@ -20,16 +20,10 @@ export default function LoginNavigator() {
         headerShown: false
       }}
     >
-       <LoginNavi.Screen
-        name="LoginCheck"
-        component={LoginCheckScreen}
-        options={{
-          headerTitle: 'Login Redirect',
-          
-        }}
-      />     
+     
+     <LoginNavi.Screen name="LoginCheckScreen" component={ LoginCheckScreen } />
       <LoginNavi.Screen
-        name="LoginPanel"
+        name="LoginScreen"
         component={LoginScreen}
         options={{
           headerTitle: 'PIA Mall Login',

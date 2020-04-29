@@ -4,7 +4,7 @@ import { Text } from 'react-native-elements';
 import { Context as AuthContext  } from '../contexts/AuthContext'; 
  
 
-export default function LoginScreen({navigation}) { 
+export default function LoginCheckScreen({navigation}) { 
     const { validateLogin } = React.useContext(AuthContext)
     console.log('checked login')
     React.useEffect( () => {  

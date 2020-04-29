@@ -18,7 +18,7 @@ export default function LoginScreen({navigation}) {
                 containerStyle={{ flex: -1 }}
                 buttonStyle={styles.button} 
                 titleStyle={styles.textButton} 
-                onPress={()=>{navigation.navigate('ShoppingCart')}}
+                onPress={()=>{navigation.navigate('Shopping Cart')}}
             /> 
           
           

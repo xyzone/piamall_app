@@ -21,8 +21,7 @@ export default function CartNavigator({ navigation, route }) {
         name="CartScreen"
         component={CartScreen}
         options={{
-          headerTitle: 'CartScreen',
-          
+          headerTitle: 'CartScreen', 
         }}
       />     
       <CartNavi.Screen

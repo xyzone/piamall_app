@@ -54,8 +54,8 @@ export default function App(props) {
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}  
          <NavigationContainer ref={navigationRef} initialState={initialNavigationState}> 
             <Stack.Navigator screenOptions={{headerShown: false}}  >   
-              <Stack.Screen name="Login" component={ LoginNavigator } />
-              <Stack.Screen name="Main" component={ MenuNavigator } />   
+              <Stack.Screen name="LoginNavigator" component={ LoginNavigator } />
+              <Stack.Screen name="MainNavigator" component={ MainNavigator } />   
              
             </Stack.Navigator>
           </NavigationContainer>

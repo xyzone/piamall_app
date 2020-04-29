@@ -8,6 +8,7 @@ import { capPostData } from '../components/GeneralFunctions'
 
 export const PIAMallApi = axios.create({
     baseURL: 'http://192.168.46.129:7150/en/'
+    //baseURL: 'http://172.17.0.1:7150/en/'
 })
 
 

@@ -5,7 +5,7 @@ import CartScreen from '../screens/Cart/CartScreen';
 import CheckoutScreen from '../screens/Cart/CheckoutScreen';   
  
 const CartNavi = createStackNavigator();
-const INITIAL_ROUTE_NAME = 'Cart Home';
+const INITIAL_ROUTE_NAME = 'CartScreen';
 CartNavi.navigationOptions = {
   headerMode: 'none',
   header: null,

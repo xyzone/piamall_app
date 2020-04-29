@@ -6,7 +6,7 @@ import { Context as AuthContext  } from '../contexts/AuthContext';
 
 export default function LoginScreen({navigation}) { 
     const { validateLogin } = React.useContext(AuthContext)
-  
+    console.log('checked login')
     React.useEffect( () => {  
       validateLogin()
     }, []) 

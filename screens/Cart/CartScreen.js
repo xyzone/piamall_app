@@ -1,57 +1,25 @@
 import { Ionicons } from '@expo/vector-icons';
 import * as WebBrowser from 'expo-web-browser';
 import * as React from 'react';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
-
-import { SearchBar, ListItem, Header } from 'react-native-elements';
-import { Text, Button, Block, NavBar, Icon } from 'galio-framework'
+import { StyleSheet, Text, View, Button } from 'react-native';
 import { RectButton, ScrollView } from 'react-native-gesture-handler';
 import { Context as AuthContext } from '../../contexts/AuthContext'
-import theme from '../../constants/Themes';
-
 export default function LinksScreen({navigation}) {
-  const {authState, validateLogin} = React.useContext(AuthContext)
+  const { validateLogin} = React.useContext(AuthContext)
   React.useEffect(() =>{
     console.log('Hit Links Screen')
-    validateLogin()
+   // validateLogin()
   }, [])
 
   return (
-    <View>
-    <Block>
-          <NavBar
-            title="Shopping Cart"
-            left={(
-              <TouchableOpacity onPress={() => navigation.openDrawer()}>
-                <Icon 
-                  name="menu"
-                  family="feather"
-                  size={theme.SIZES.BASE}
-                  color={theme.COLORS.ICON}
-                />
-              </TouchableOpacity>
-            )}
-            right= {(
-              <TouchableOpacity onPress={() => navigation.navigate('Shopping Cart')}>
-              <Icon 
-                name="shopping-cart"
-                family="feather"
-                size={theme.SIZES.BASE}
-                color={theme.COLORS.ICON}
-              />
-            </TouchableOpacity>
-            )} 
-            style={Platform.OS === 'android' ? { marginTop: theme.SIZES.BASE } : null}
-          /> 
-       </Block>
-   
+    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
        <Button  
-                 
+                title="CheckoutNavi!"
                 containerStyle={{ flex: -1 }}
                 buttonStyle={styles.button} 
                 titleStyle={styles.textButton} 
-                onPress={()=>{navigation.navigate('CheckoutScreen')}}
-      >CheckoutScreen</Button>
+                onPress={()=>{navigation.navigate('Shopping Cart', {screen: 'CheckoutScreen'})}}
+            /> 
       <OptionButton
         icon="md-school"
         label="Read the Expo documentation"
@@ -68,8 +36,7 @@ export default function LinksScreen({navigation}) {
         onPress={() => WebBrowser.openBrowserAsync('https://forums.expo.io')}
         isLastOption
       />
-   
-    </View>
+    </ScrollView>
   );
 }
 

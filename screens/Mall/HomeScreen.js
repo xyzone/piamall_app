@@ -8,6 +8,7 @@ import { SearchBar, ListItem, Header } from 'react-native-elements';
 import { Text, Button, Block, NavBar, Icon } from 'galio-framework'
 import { Context as AuthContext } from '../../contexts/AuthContext';
 import { DemoProudcts, DemoCategories } from '../../contexts/TestData';
+import  NavbarScreen  from '../NavbarScreen'
 import theme from '../../constants/Themes';
 
 export default function HomeScreen({navigation}) {
@@ -52,32 +53,9 @@ export default function HomeScreen({navigation}) {
  
   return (
     <View  style={{flex: 1}}>  
-        <Block  >
-          <NavBar
-            title="Mall"
-            left={(
-              <TouchableOpacity onPress={() => navigation.openDrawer()}>
-                <Icon 
-                  name="menu"
-                  family="feather"
-                  size={theme.SIZES.BASE}
-                  color={theme.COLORS.ICON}
-                />
-              </TouchableOpacity>
-            )}
-            right= {(
-              <TouchableOpacity onPress={() => navigation.navigate('Shopping Cart')}>
-              <Icon 
-                name="shopping-cart"
-                family="feather"
-                size={theme.SIZES.BASE}
-                color={theme.COLORS.ICON}
-              />
-            </TouchableOpacity>
-            )} 
-            style={Platform.OS === 'android' ? { marginTop: theme.SIZES.BASE } : null}
-          /> 
-       </Block>
+          <Block>
+            {NavbarScreen({navigation})}
+          </Block>
             <SearchBar
               placeholder="Search Products ..."
               onChangeText={(val) => {setKeywords(val)}}

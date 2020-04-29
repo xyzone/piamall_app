@@ -2,12 +2,9 @@
 import React, {createContext, useReducer} from 'react'
 import {AsyncStorage} from 'react-native';  
 import {navigateTo} from '../navigation/RootNavigation'; 
-import PIAMallApi from '../apis/PIAMallApi';
-import { config_form_data } from '../apis/ApiDataForm'
-import { capFormData } from '../components/GeneralFunctions'
+import { ValidateClientApi, AuthClientApi, LogoutClientApi } from '../apis/PIAMallApi'; 
 
-
-
+ 
 const initialValue = {
     is_login: false,
     authToken: '',
@@ -38,18 +35,12 @@ const login = (dispatch) => {
                     payload: 'Failed to login! Message: need input username and password'});
                 return false
             } 
-            
-            let form_data = capFormData(
-                {username, password}
-            ) 
-            var api_response = await PIAMallApi.post('/api/api_login/', 
-            form_data,  config_form_data)
-
+            let api_response = await AuthClientApi(username, password)             
             if (api_response.data.result){ 
                 let token = api_response.data.user_token
                 dispatch({type: 'login', payload: {is_login: true, authToken: token}})
                 await AsyncStorage.setItem('authToken', token)
-                navigateTo('Main') 
+                navigateTo('MainNavigator') 
 
             }else{
                 dispatch({
@@ -66,20 +57,17 @@ const validateLogin = (dispatch) => {
         async () => {
             const token = await AsyncStorage.getItem('authToken')
             if (token)
-            {
-                let form_data = capFormData(
-                    {user_token: token}                ) 
-                var api_response = await PIAMallApi.post('/api/api_login_check/', form_data, config_form_data)
-               
-                if (api_response.data.result){
-                    dispatch({type: 'login', payload: {is_login: true, authToken: token}})
-                    navigateTo('Main')
-                }else{
-                    dispatch({type: 'logout'}) 
-                    navigateTo('LoginPanel')
-                } 
+            {                
+               let api_response = await ValidateClientApi(token)
+               if (api_response.data.result){
+                   dispatch({type: 'login', payload: {is_login: true, authToken: token}})
+                   navigateTo('MainNavigator')
+               }else{
+                   dispatch({type: 'logout'}) 
+                   navigateTo('LoginNavigator', {screen: 'LoginScreen'})
+               } 
             }else{
-                navigateTo('LoginPanel')
+                navigateTo('LoginNavigator', {screen: 'LoginScreen'})
             }
             
         }
@@ -89,9 +77,17 @@ const validateLogin = (dispatch) => {
 const logout = (dispatch) => {
     return (
         async () => {
-            await AsyncStorage.setItem('authToken', '');
-            dispatch({type: 'logout'}) 
-            navigateTo('LoginPanel')
+            const token = await AsyncStorage.getItem('authToken')
+            if (token)
+            {                
+                await LogoutClientApi(token)
+                await AsyncStorage.setItem('authToken', '');
+                dispatch({type: 'logout'}) 
+                navigateTo('LoginNavigator', {screen: 'LoginScreen'})
+            }else{
+                navigateTo('LoginNavigator', {screen: 'LoginScreen'})
+            }
+            
         }
     )
 }

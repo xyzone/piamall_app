@@ -92,16 +92,12 @@ export default function HomeScreen({navigation}) {
                 }}
               
             />
-          <Button    
-                buttonStyle={styles.button} 
-                titleStyle={styles.textButton} 
-                onPress={()=>{getCategory()}}  >Refresh </Button>
-          <Button    
-                buttonStyle={styles.button} 
-                titleStyle={styles.textButton} 
+            <Block style={{justifyContent: 'center', alignItems:'center'}}>
+              <Button round size="small" color="#50C7C7" onPress={()=>{getCategory()}}  >Refresh </Button>
+              <Button round size="small" color="success"
                 onPress={()=>{navigation.navigate('CategorySreen')}}  >Go Shopping Now </Button>
         
-        
+            </Block>    
         
             
       </View>

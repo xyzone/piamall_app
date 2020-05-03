@@ -7,8 +7,8 @@ import { capPostData } from '../components/GeneralFunctions'
 
 
 export const PIAMallApi = axios.create({
-    //baseURL: 'http://192.168.46.129:7150/en/'
-    baseURL: 'http://172.17.0.1:7150/en/'
+    baseURL: 'http://192.168.46.129:7150/en/'
+    //baseURL: 'http://172.17.0.1:7150/en/'
 })
 
 
@@ -42,5 +42,21 @@ export async function GetCategoryList(idcategory=0){
     let api_response = await PIAMallApi.get('/api/api_category_list/', 
     {params: {all: true, user_token: token, idcategory}})
     return api_response
-
+}
+ 
+export async function GetProductList(idcategory=0){
+    let token = await AsyncStorage.getItem('authToken')
+    let api_response = await PIAMallApi.get('/api/api_product_list/', 
+    {params: {all: true, user_token: token, category_id: idcategory}})
+   
+    return api_response
+} 
+ 
+export async function GetProductDetail(idproduct){
+    let token = await AsyncStorage.getItem('authToken')
+    let get_data = {all: true, user_token: token, ids:"[" + idproduct.toString() + "]", test: [1,2,3].toString()}
+    let api_response = await PIAMallApi.get('/api/api_product_detail/', 
+    {params: get_data})
+    console.log(api_response)
+    return api_response
 }

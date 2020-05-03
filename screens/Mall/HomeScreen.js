@@ -8,7 +8,7 @@ import { SearchBar, ListItem, Header } from 'react-native-elements';
 import { Text, Button, Block, NavBar, Icon } from 'galio-framework'
 import { Context as AuthContext } from '../../contexts/AuthContext';
 import { DemoProudcts, DemoCategories } from '../../contexts/TestData';
-import  NavbarScreen  from '../NavbarScreen'
+import  NavbarScreen  from '../NavbarScreen';
 import theme from '../../constants/Themes';
 import { GetCategoryList } from '../../apis/PIAMallApi'
 
@@ -17,10 +17,13 @@ export default function HomeScreen({navigation}) {
   const [banners, setBanners] = React.useState([]) 
   const [featureProducts, setFeatureProducts] = React.useState([])
   const [keywords, setKeywords] = React.useState('')
+  const [ category, setCategory ] = React.useState([]) 
 
   async function getCategory(){
     let category_list = await GetCategoryList()
-    console.log(category_list)
+    if (category_list.data.result){
+      setCategory(category_list.data.instances.data.filter((item) => {return item.parent_category_id == ""}))
+    } 
   }
 
 
@@ -30,10 +33,9 @@ export default function HomeScreen({navigation}) {
     
   }, []) 
   React.useEffect(() => {
-   
-
+    
     getCategory()
-  })
+  }, [])
   React.useEffect(() => { 
     
     setBanners(
@@ -53,6 +55,10 @@ export default function HomeScreen({navigation}) {
   const renderCategory = ({ item }) => {
      
     return (
+      <TouchableOpacity
+      onPress={() =>
+          navigation.navigate('CategorySreen', { keyId: item.id })
+      }  >
     <ListItem
       title={item.category_name}
       subtitle={item.category_name}
@@ -62,7 +68,9 @@ export default function HomeScreen({navigation}) {
       }}
       bottomDivider
       chevron
-    />)
+    />
+    </TouchableOpacity>
+    )
   }
  
   return (
@@ -83,15 +91,13 @@ export default function HomeScreen({navigation}) {
 
       
             <Text>Shop by Departments</Text>
-            <FlatList
-              keyExtractor={item => item.id.toString()}
-              data={DemoCategories}
-              renderItem={renderCategory} 
-              contentContainerStyle={{
-                flexGrow: 1, 
-                }}
-              
-            />
+            {category.length > 0 ?  
+              <FlatList keyExtractor={item => item.id.toString()}  
+              data={category}  renderItem={renderCategory}  
+              contentContainerStyle={{ flexGrow: 1}}  /> 
+            : 
+              <Text>Processing.....</Text>  
+            }
             <Block style={{justifyContent: 'center', alignItems:'center'}}>
               <Button round size="small" color="#50C7C7" onPress={()=>{getCategory()}}  >Refresh </Button>
               <Button round size="small" color="success"

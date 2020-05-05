@@ -1,6 +1,7 @@
 import * as React  from 'react'
-import { StyleSheet, View, FlatList, TouchableOpacity } from 'react-native';  
-import { Text, Button, Block, NavBar, Icon } from 'galio-framework'
+import { StyleSheet, View, FlatList, TouchableOpacity, Dimensions } from 'react-native';  
+import { Text, Button, Block, NavBar, Icon } from 'galio-framework';
+import Image from 'react-native-scalable-image';
 import { SearchBar, ListItem, Header } from 'react-native-elements';
 import { Context as AuthContext  } from '../../contexts/AuthContext'; 
 import  NavbarScreen  from '../NavbarScreen';
@@ -22,8 +23,7 @@ export default function ProductScreen({ route, navigation }) {
    
     React.useEffect( () => {  
       validateLogin()
-      getProduct(keyId)
-      
+      getProduct(keyId)      
     }, []) 
 
  
@@ -31,8 +31,14 @@ export default function ProductScreen({ route, navigation }) {
       <View  style={{flex: 1}}>  
             <Block>{NavbarScreen({navigation})}</Block>
             <Text>Category Product List token: {authState.authToken} {authState.is_login} {keyId}.</Text>
-
             <Text> SKU: {product.sku}</Text>
+            <Text> Name: {product.product_name}</Text>
+            <Text>{product.primary_image_url}</Text>
+            {product.primary_image_url ? <Image
+              width={Dimensions.get('window').width} // height will be calculated automatically
+              source={{uri: '{product.primary_image_url}'}}
+            /> : null }
+ 
             <Button                  
                 containerStyle={{ flex: -1 }}
                 buttonStyle={styles.button} 

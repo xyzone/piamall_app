@@ -85,6 +85,12 @@ export default function HomeScreen({navigation}) {
           />
        
           <SliderBox images={banners}  
+            onCurrentImagePressed={
+              index => console.log(`image ${index} pressed`)
+            }  
+            dotColor="#FFEE58"   
+            inactiveDotColor="#90A4AE"   
+            paginationBoxVerticalPadding={20}   
            autoplay circleLoop
            sliderBoxHeight={180}
            />

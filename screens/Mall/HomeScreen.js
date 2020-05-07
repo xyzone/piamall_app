@@ -84,10 +84,8 @@ export default function HomeScreen({navigation}) {
               value={keywords} 
           />
        
-          <SliderBox images={banners}  
-            onCurrentImagePressed={
-              index => console.log(`image ${index} pressed`)
-            }  
+          <SliderBox images={banners} onCurrentImagePressed={
+              index => console.log(`image ${index} pressed`) }  
             dotColor="#FFEE58"   
             inactiveDotColor="#90A4AE"   
             paginationBoxVerticalPadding={20}   
@@ -108,10 +106,7 @@ export default function HomeScreen({navigation}) {
               <Button round size="small" color="#50C7C7" onPress={()=>{getCategory()}}  >Refresh </Button>
               <Button round size="small" color="success"
                 onPress={()=>{navigation.navigate('CategorySreen')}}  >Go Shopping Now </Button>
-        
-            </Block>    
-        
-            
+            </Block>                 
       </View>
  
   );

@@ -10,26 +10,33 @@ import { GetCategoryList, GetProductList } from '../../apis/PIAMallApi'
 export default function CategoryScreen({ route, navigation }) { 
     const { authState, validateLogin } = React.useContext(AuthContext)
     const { keyId } = route.params
-    const [ subcategory, setSubcategory ] = React.useState([])
+    const [ subcategoryList, setSubcategoryList ] = React.useState([])
     const [ productList, setProductList ] = React.useState([])
-
+   
+    async function getSubCategory(keyId){
+      let category_list = await GetCategoryList(keyId)
+      if (category_list.data.result){
+        console.log(category_list.data.instances.data)
+        setSubcategoryList(category_list.data.instances.data)
+      } 
+    }
     async function getProducts(category_id){
       let product_list = await GetProductList(category_id)
-      if (product_list.data.result){
-        console.log(product_list.data.instances.data)
+      if (product_list.data.result){ 
         setProductList(product_list.data.instances.data)
       } 
     }
-   
+ 
     React.useEffect( () => {  
       validateLogin()
       getProducts(keyId)
+      getSubCategory(keyId)
+
       
     }, []) 
 
 
-    const renderProduct = ({ item }) => {
-      
+    const renderProduct = ({ item }) => { 
       return (
         <TouchableOpacity
         onPress={() =>
@@ -48,12 +55,24 @@ export default function CategoryScreen({ route, navigation }) {
       </TouchableOpacity>
       )
     }
-  
+     
+
     return (
       <View  style={{flex: 1}}>  
             <Block>{NavbarScreen({navigation})}</Block>
             <Text>Category Product List token: {authState.authToken} {authState.is_login} {keyId}.</Text>
-
+           { subcategoryList.map((category) => {
+              return(
+                <TouchableOpacity
+                onPress={() =>
+                    navigation.navigate('CategorySreen', { keyId: item.id })
+                }  >
+              <Text key={category.id}>{category.category_name}</Text>
+              </TouchableOpacity>
+              )
+            }) 
+          }
+     
             {productList? 
               <FlatList keyExtractor={item => item.prd_id.toString()}  
               data={productList}  renderItem={renderProduct}  

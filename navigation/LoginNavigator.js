@@ -1,41 +1,35 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react';
-
-import TabBarIcon from '../components/TabBarIcon';
-import LoginScreen from '../screens/LoginScreen';  
-import LoginCheckScreen from '../screens/LoginCheckScreen';  
+ 
+import LoginCheckScreen from '../screens/LoginCheckScreen';   
+import LoginScreen from '../screens/LoginScreen';   
 
 const LoginNavi = createStackNavigator();
-const INITIAL_ROUTE_NAME = 'Home';
+const INITIAL_ROUTE_NAME = 'Login Home';
+ 
+LoginNavi.navigationOptions = {
+  headerMode: 'none',
+  header: null,
+  headerLeft: null  
+};
 
-export default function LoginNavigator({ navigation, route }) { 
-  navigation.setOptions({ headerTitle: getHeaderTitle(route)  });
+export default function LoginNavigator() { 
   return (
-    <LoginNavi.Navigator  initialRouteName={INITIAL_ROUTE_NAME}>
-       <LoginNavi.Screen
-        name="LoginCheck"
-        component={LoginCheckScreen}
-        options={{
-          title: 'Login Check',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-home" />,
-        }}
-      />     
+    <LoginNavi.Navigator  initialRouteName={INITIAL_ROUTE_NAME}
+      screenOptions={{
+        headerShown: false
+      }}
+    >
+     
+     <LoginNavi.Screen name="LoginCheckScreen" component={ LoginCheckScreen } />
       <LoginNavi.Screen
-        name="LoginPanel"
+        name="LoginScreen"
         component={LoginScreen}
         options={{
-          title: 'Login',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-home" />,
+          headerTitle: 'PIA Mall Login',
+          headerLeft: null,          
         }}
       />     
     </LoginNavi.Navigator>
   );
-}
-
-function getHeaderTitle(route) {
-  const routeName = route.state?.routes[route.state.index]?.name ?? INITIAL_ROUTE_NAME;
-  switch (routeName) { 
-    case 'Login':
-      return 'Login';
-  }
 }

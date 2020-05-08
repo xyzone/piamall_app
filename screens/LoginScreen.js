@@ -1,39 +1,44 @@
-import { Ionicons } from '@expo/vector-icons';
-import * as WebBrowser from 'expo-web-browser';
-import React, {useState, useContext, useEffect} from 'react'
-import {   StyleSheet,
-    View, 
-    ImageBackground,
-    Dimensions,
-    LayoutAnimation,
-    UIManager,
-    KeyboardAvoidingView, } from 'react-native';
-import { RectButton, ScrollView } from 'react-native-gesture-handler';
-
-import Icon from 'react-native-vector-icons/FontAwesome';
+import * as React from 'react'
+import { StyleSheet, View, Dimensions, KeyboardAvoidingView } from 'react-native'; 
+import Icon from 'react-native-vector-icons/FontAwesome'; 
 import { Input } from 'react-native-elements';
-import { Button, ThemeProvider, Text } from 'react-native-elements';
-import { Context as AuthContext, Provider as AuthProvider } from '../contexts/AuthContext'; 
+import { ScrollView } from 'react-native-gesture-handler';
+import { SliderBox } from 'react-native-image-slider-box';
+import { Text,  Button} from 'galio-framework'
+import { Context as AuthContext } from '../contexts/AuthContext'; 
 const SCREEN_WIDTH = Dimensions.get('window').width;
-const SCREEN_HEIGHT = Dimensions.get('window').height;
-
+ 
 export default function LoginScreen({navigation}) {
 
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('') 
-    const { authState, login, validateLogin } = useContext(AuthContext)
- 
-    useEffect( () => {  
+    const [username, setUsername] = React.useState('')
+    const [password, setPassword] = React.useState('') 
+    const { authState, login } = React.useContext(AuthContext)
+    const [banners, setBanners] = React.useState([])
     
-    }, [])
-
+    React.useEffect(() => {
+      setBanners(
+        [
+          "https://www.cportal.com.au/static/shoppingcart/images/banner1.png",
+          "https://www.cportal.com.au/static/shoppingcart/images/banner2.png",
+          "https://www.cportal.com.au/static/shoppingcart/images/banner3.png"
+        ]
+      )
+    }, []) 
+  
     return (
-        <View style={styles.container}>  
-            <Text>{authState.authToken}</Text>
+        <View style={styles.container}>   
+              <View> 
+                      <SliderBox images={banners}  
+                      autoplay circleLoop
+                      sliderBoxHeight={180}
+                      />
+                    </View>
+
             <KeyboardAvoidingView
               contentContainerStyle={styles.loginContainer}
               behavior="position">
-                <View style={styles.loginContainer}>
+                  
+                {authState.authToken? <Text> Wait for processing ... </Text> : null}
                 <View style={styles.formContainer}>
                     <Input
                         leftIcon={
@@ -83,26 +88,90 @@ export default function LoginScreen({navigation}) {
                     />
 
                     <Button  
-                        title="Login"
-                        containerStyle={{ flex: -1 }}
-                        buttonStyle={styles.loginButton} 
-                        titleStyle={styles.loginTextButton} 
-                        onPress={()=>{login(username, password)}}
-                    /> 
+                      style={styles.button}
+                      round uppercase 
+                      color="info"
+                      title="Login PIA Mall"
+                      containerStyle={{ flex: -1 }}
+                      buttonStyle={styles.loginButton} 
+                      titleStyle={styles.loginTextButton} 
+                      onPress={()=>{login(username, password)}}
+                    > Login PIA Mall </Button>
 
                 </View>    
                 {authState.loginMessage? <Text style={styles.errorMessage}>{authState.loginMessage}</Text>: null}
+              
+
+            </KeyboardAvoidingView>  
+
+            <ScrollView   contentContainerStyle={styles.contentContainer}>
+                <View style={styles.getStartedContainer}>
+          
+                <Text style={styles.getStartedText}>Earn loyalty points just by
+        being a loyal customer</Text>
+        
+                  <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
+                    <Text style={styles.codeHighlightText}>
+                      Discover exclusive offers that we have selected for you from our participating partners. 
+                      
+                      Use your points to purchase vouchers, gift cards, services and lifestyle offers to save at your favourite retailers.
+                      </Text>
+                  </View>
+        
+                  <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
+                    <Text style={styles.codeHighlightText}>   
+                      
+                      Our points+cash system allows you to check out simply and securely and track your points balance. Remember, the more properties you have, the more points you can earn with PIA and the more you can save.
+                      </Text>
+                  </View>
+        
+                  <Text style={styles.getStartedText}>Earn loyalty points just by
+        being a loyal customer</Text>
+        
+                  <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
+                    <Text style={styles.codeHighlightText}>
+                      Discover exclusive offers that we have selected for you from our participating partners. 
+                      
+                      Use your points to purchase vouchers, gift cards, services and lifestyle offers to save at your favourite retailers.
+                      </Text>
+                  </View>
+        
+                  <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
+                    <Text style={styles.codeHighlightText}>   
+                      
+                      Our points+cash system allows you to check out simply and securely and track your points balance. Remember, the more properties you have, the more points you can earn with PIA and the more you can save.
+                      </Text>
+                  </View>
+        
+        
+                  <Text style={styles.getStartedText}>Earn loyalty points just by
+        being a loyal customer</Text>
+        
+                  <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
+                    <Text style={styles.codeHighlightText}>
+                      Discover exclusive offers that we have selected for you from our participating partners. 
+                      
+                      Use your points to purchase vouchers, gift cards, services and lifestyle offers to save at your favourite retailers.
+                      </Text>
+                  </View>
+        
+                  <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
+                    <Text style={styles.codeHighlightText}>   
+                      
+                      Our points+cash system allows you to check out simply and securely and track your points balance. Remember, the more properties you have, the more points you can earn with PIA and the more you can save.
+                      </Text>
+                  </View>
+        
                 </View>
-            </KeyboardAvoidingView> 
+  
+                </ScrollView>
         </View>
+
+        
+        
     )
 }
-
-
-LoginScreen.navigationOptions = {
-    header: null,
-  };
- 
+  
   const styles = StyleSheet.create({
     errorMessage: {
         fontSize: 16,
@@ -112,30 +181,13 @@ LoginScreen.navigationOptions = {
     },
     
     container: {
+      marginTop: 25,
       flex: 1,
     },
-
-
-    rowSelector: {
-      height: 20,
-      flexDirection: 'row',
-      alignItems: 'center',
+    button: {
+      marginTop: 10,
     },
-    selectorContainer: {
-      flex: 1,
-      alignItems: 'center',
-    },
-    selected: {
-      position: 'absolute',
-      borderRadius: 50,
-      height: 0,
-      width: 0,
-      top: -5,
-      borderRightWidth: 70,
-      borderBottomWidth: 70,
-      borderColor: 'white',
-      backgroundColor: 'white',
-    },
+ 
     loginContainer: {
         marginTop: 3,
       alignItems: 'center',
@@ -171,34 +223,79 @@ LoginScreen.navigationOptions = {
       fontWeight: 'bold',
       color: 'white',
     },
-    bgImage: {
-      flex: 1,
-      top: 0,
-      left: 0,
-      width: SCREEN_WIDTH,
-      height: SCREEN_HEIGHT,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    categoryText: {
-      textAlign: 'center',
-      color: 'white',
-      fontSize: 24,
-      fontFamily: 'light',
-      backgroundColor: 'transparent',
-      opacity: 0.54,
-    },
-    selectedCategoryText: {
-      opacity: 1,
-    },
+    
     titleText: {
       color: 'white',
       fontSize: 30,
       fontFamily: 'regular',
     },
-    helpContainer: {
-      height: 64,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-  });  
+      
+  textButton: {
+    fontSize: 14,
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  button: {
+    marginTop: 10,  
+    //backgroundColor: 'rgba(232, 147, 142, 1)',
+    borderRadius: 15,
+    height: 30,
+    width: 200,
+  },
+
+   
+  developmentModeText: {
+    marginBottom: 20,
+    color: 'rgba(0,0,0,0.4)',
+    fontSize: 14,
+    lineHeight: 19,
+    textAlign: 'center',
+  },
+  contentContainer: {
+    paddingTop: 10,
+    paddingBottom: 50
+  },
+  welcomeContainer: {
+    alignItems: 'center',
+    marginTop: 10,
+    marginBottom: 20,
+  }, 
+  getStartedContainer: {
+    marginTop: 10,
+    alignItems: 'center',
+    marginHorizontal: 50,
+  },
+  homeScreenFilename: { 
+    marginVertical: 7,
+  },
+  codeHighlightText: {
+    fontSize: 13,
+    color: 'rgba(96,100,109, 0.8)',
+  },
+  codeHighlightContainer: { 
+    backgroundColor: 'rgba(0,0,0,0.03)',
+    borderRadius: 3,
+    paddingHorizontal: 4, 
+  },
+  getStartedText: {
+    fontSize: 19,
+    color: 'rgba(96,100,109, 1)',
+    lineHeight: 24,
+    textAlign: 'center',
+  },
+   
+  navigationFilename: {
+    marginTop: 5,
+  },
+  helpContainer: {
+    marginTop: 15,
+    alignItems: 'center',
+  },
+  helpLink: {
+    paddingVertical: 15,
+  },
+  helpLinkText: {
+    fontSize: 12,
+    color: '#2e78b7',
+  },
+});

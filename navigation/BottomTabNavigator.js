@@ -1,11 +1,11 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as React from 'react';
 
-import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
-import AccountScreen from '../screens/AccountScreen'; 
-import OrderScreen from '../screens/OrderScreen';  
+import TabBarIcon from '../components/TabBarIcon'; 
+import CartNavigator from '../navigation/CartNavigator';
+import AccountNavigator from '../navigation/AccountNavigator'; 
+import OrderNavigator from '../navigation/OrderNavigator';  
+import MallNavigator from '../navigation/MallNavigator'
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Home';
 
@@ -16,10 +16,10 @@ export default function BottomTabNavigator({ navigation, route }) {
   navigation.setOptions({ headerTitle: getHeaderTitle(route) });
 
   return (
-    <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
-      <BottomTab.Screen
-        name="Home"
-        component={HomeScreen}
+    <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME} >
+      <BottomTab.Screen 
+        name="Mall"
+        component={MallNavigator}
         options={{
           title: 'Mall',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-home" />,
@@ -27,7 +27,7 @@ export default function BottomTabNavigator({ navigation, route }) {
       />
       <BottomTab.Screen
         name="ShoppingCart"
-        component={LinksScreen}
+        component={CartNavigator}
         options={{
           title: 'Shopping Cart',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-basket" />,
@@ -35,7 +35,7 @@ export default function BottomTabNavigator({ navigation, route }) {
       />
      <BottomTab.Screen
         name="Orders"
-        component={OrderScreen}
+        component={OrderNavigator}
         options={{
           title: 'Orders',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-filing" />,
@@ -43,7 +43,7 @@ export default function BottomTabNavigator({ navigation, route }) {
       />    
       <BottomTab.Screen
         name="Account"
-        component={AccountScreen}
+        component={AccountNavigator}
         options={{
           title: 'Account',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="ios-contact" />,

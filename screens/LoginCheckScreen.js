@@ -36,7 +36,7 @@ export default function LoginScreen({navigation}) {
     useEffect( () => {  
       checkLogin() 
     }, [])
-    checkLogin() 
+ 
     return (
         <View style={styles.container}>  
             <Text>Please wait for processing....</Text>

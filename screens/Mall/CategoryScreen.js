@@ -72,11 +72,13 @@ export default function CategoryScreen({ route, navigation }) {
      
    
     return (
-      <View  style={{flex: 1}}>  
+      <View style={{flex: 1}}>  
             <Block>{NavbarScreen({navigation})}</Block>
             <Text>Category Product List token: {authState.authToken} {authState.is_login} </Text>
             <Text> Chosen Category{chosenCategory.category_name}.</Text>
+            
             {subcategoryList? <Text>Sub Categories</Text> : null}
+            
             {subcategoryList?
                
                subcategoryList.map((item) => {
@@ -88,8 +90,7 @@ export default function CategoryScreen({ route, navigation }) {
               }) 
               : null   
             }
-           
-     
+
             {productList? 
               <FlatList keyExtractor={item => item.prd_id.toString()}  
               data={productList}  renderItem={renderProduct}  

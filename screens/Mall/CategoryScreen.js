@@ -9,15 +9,16 @@ import { GetCategoryList, GetProductList } from '../../apis/PIAMallApi'
 
 export default function CategoryScreen({ route, navigation }) { 
     const { authState, validateLogin } = React.useContext(AuthContext)
-    const { keyId } = route.params
+    const { param_chosen_category } = route.params
     const [ chosenCategory, setChosenCategory ] = React.useState('')
     const [ subcategoryList, setSubcategoryList ] = React.useState([])
     const [ productList, setProductList ] = React.useState([])
-   
+
+    console.log('chosen category', param_chosen_category)
     async function getSubCategory(category_id){
       let category_list = await GetCategoryList(category_id)
       if (category_list.data.result){
-        console.log(category_list.data.instances.data)
+        console.log('category list', category_list.data.instances.data)
         setSubcategoryList(category_list.data.instances.data)
       } 
       else{
@@ -33,16 +34,19 @@ export default function CategoryScreen({ route, navigation }) {
  
     React.useEffect( () => {  
       validateLogin()
-      refreshPage(keyId)
+      console.log('param_chosen_category', param_chosen_category)
+      refreshPage(param_chosen_category)
 
       
     }, []) 
 
-    async function refreshPage(c_Category)
+    async function refreshPage(category)
     {
-      setChosenCategory(c_Category)
-      await getProducts(c_Category)
-      await getSubCategory(c_Category)
+      if (category){
+        setChosenCategory(category)
+        await getProducts(category.id)
+        await getSubCategory(category.id)      
+      }
       
     }
 
@@ -66,39 +70,23 @@ export default function CategoryScreen({ route, navigation }) {
       )
     }
      
-    const renderSubcategory = ({subcategory}) => {
-      
-      if(!subcategory==''){
-        return (
-          <Text></Text>
-            
-              
-            )
-      }else{
-        return(
-          <Text></Text>
-        )
-      }
-    }
-
+   
     return (
       <View  style={{flex: 1}}>  
             <Block>{NavbarScreen({navigation})}</Block>
-            <Text>Category Product List token: {authState.authToken} {authState.is_login} {chosenCategory}.</Text>
-           
-            {
-               subcategoryList.map((category) => {
+            <Text>Category Product List token: {authState.authToken} {authState.is_login} </Text>
+            <Text> Chosen Category{chosenCategory.category_name}.</Text>
+            {subcategoryList? <Text>Sub Categories</Text> : null}
+            {subcategoryList?
+               
+               subcategoryList.map((item) => {
                 return(
-                  <TouchableOpacity  key={category.id}
-                  onPress={() =>
-                    refreshPage(category.id)
-                  }  >
-                    <Text key={category.id}>{category.category_name}</Text>
+                  <TouchableOpacity  key={item.id}  onPress={() => refreshPage(item) }  >
+                    <Text key={item.id}>{item.category_name}</Text>
                 </TouchableOpacity>
                 )
-              })   
-
-
+              }) 
+              : null   
             }
            
      
@@ -109,12 +97,7 @@ export default function CategoryScreen({ route, navigation }) {
               :
               <Text>Loading ....</Text>
             }
-            <Button                  
-                containerStyle={{ flex: -1 }}
-                buttonStyle={styles.button} 
-                titleStyle={styles.textButton} 
-                onPress={()=>{navigation.navigate('ProductScreen')}}
-            > Check Product!</Button>
+          
             { authState.is_login? <Text>Login</Text>: <Text>NO</Text>}
    
         </View>

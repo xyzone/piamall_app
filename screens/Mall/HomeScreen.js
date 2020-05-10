@@ -57,7 +57,7 @@ export default function HomeScreen({navigation}) {
     return (
       <TouchableOpacity
       onPress={() =>
-          navigation.navigate('CategorySreen', { keyId: item.id })
+          navigation.navigate('CategorySreen', { param_chosen_category: item })
       }  >
     <ListItem
       title={item.category_name}

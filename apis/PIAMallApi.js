@@ -40,7 +40,7 @@ export async function LogoutClientApi(token){
 export async function GetCategoryList(idcategory=0){
     let token = await AsyncStorage.getItem('authToken')
     let api_response = await PIAMallApi.get('/api/api_category_list/', 
-    {params: {all: true, user_token: token, idcategory}})
+    {params: {all: true, user_token: token, parent_category_id: idcategory}})
     return api_response
 }
  

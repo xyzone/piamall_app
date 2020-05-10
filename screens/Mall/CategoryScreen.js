@@ -10,15 +10,19 @@ import { GetCategoryList, GetProductList } from '../../apis/PIAMallApi'
 export default function CategoryScreen({ route, navigation }) { 
     const { authState, validateLogin } = React.useContext(AuthContext)
     const { keyId } = route.params
+    const [ chosenCategory, setChosenCategory ] = React.useState('')
     const [ subcategoryList, setSubcategoryList ] = React.useState([])
     const [ productList, setProductList ] = React.useState([])
    
-    async function getSubCategory(keyId){
-      let category_list = await GetCategoryList(keyId)
+    async function getSubCategory(category_id){
+      let category_list = await GetCategoryList(category_id)
       if (category_list.data.result){
         console.log(category_list.data.instances.data)
         setSubcategoryList(category_list.data.instances.data)
       } 
+      else{
+        setSubcategoryList([])
+      }
     }
     async function getProducts(category_id){
       let product_list = await GetProductList(category_id)
@@ -29,24 +33,30 @@ export default function CategoryScreen({ route, navigation }) {
  
     React.useEffect( () => {  
       validateLogin()
-      getProducts(keyId)
-      getSubCategory(keyId)
+      refreshPage(keyId)
 
       
     }, []) 
 
+    async function refreshPage(c_Category)
+    {
+      setChosenCategory(c_Category)
+      await getProducts(c_Category)
+      await getSubCategory(c_Category)
+      
+    }
 
     const renderProduct = ({ item }) => { 
       return (
-        <TouchableOpacity
+        <TouchableOpacity key={item.prd_id}
         onPress={() =>
             navigation.navigate('ProductScreen', { keyId: item.prd_id })
         }  >
       <ListItem
+        key={item.prouduct_id}
         title={item.product_name}
         subtitle={item.product_name}
         leftAvatar={{
-         
           title: item.product_name
         }}
         bottomDivider
@@ -56,22 +66,41 @@ export default function CategoryScreen({ route, navigation }) {
       )
     }
      
+    const renderSubcategory = ({subcategory}) => {
+      
+      if(!subcategory==''){
+        return (
+          <Text></Text>
+            
+              
+            )
+      }else{
+        return(
+          <Text></Text>
+        )
+      }
+    }
 
     return (
       <View  style={{flex: 1}}>  
             <Block>{NavbarScreen({navigation})}</Block>
-            <Text>Category Product List token: {authState.authToken} {authState.is_login} {keyId}.</Text>
-           { subcategoryList.map((category) => {
-              return(
-                <TouchableOpacity
-                onPress={() =>
-                    navigation.navigate('CategorySreen', { keyId: item.id })
-                }  >
-              <Text key={category.id}>{category.category_name}</Text>
-              </TouchableOpacity>
-              )
-            }) 
-          }
+            <Text>Category Product List token: {authState.authToken} {authState.is_login} {chosenCategory}.</Text>
+           
+            {
+               subcategoryList.map((category) => {
+                return(
+                  <TouchableOpacity  key={category.id}
+                  onPress={() =>
+                    refreshPage(category.id)
+                  }  >
+                    <Text key={category.id}>{category.category_name}</Text>
+                </TouchableOpacity>
+                )
+              })   
+
+
+            }
+           
      
             {productList? 
               <FlatList keyExtractor={item => item.prd_id.toString()}  

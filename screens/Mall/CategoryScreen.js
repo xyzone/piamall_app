@@ -3,7 +3,7 @@ import { StyleSheet, View, FlatList, TouchableOpacity } from 'react-native';
 import { Text, Button, Block, NavBar, Icon } from 'galio-framework'
 import { SearchBar, ListItem, Header } from 'react-native-elements';
 import { Context as AuthContext  } from '../../contexts/AuthContext'; 
-import  NavbarScreen  from '../NavbarScreen';
+import {NavBarScreen, NavbarCategoryScreen}  from '../NavbarScreen';
 import { GetCategoryList, GetProductList } from '../../apis/PIAMallApi'
 
 
@@ -36,8 +36,6 @@ export default function CategoryScreen({ route, navigation }) {
       validateLogin()
       console.log('param_chosen_category', param_chosen_category)
       refreshPage(param_chosen_category)
-
-      
     }, []) 
 
     async function refreshPage(category)
@@ -69,14 +67,11 @@ export default function CategoryScreen({ route, navigation }) {
       </TouchableOpacity>
       )
     }
-     
-   
+
     return (
       <View style={{flex: 1}}>  
-            <Block>{NavbarScreen({navigation})}</Block>
-            <Text>Category Product List token: {authState.authToken} {authState.is_login} </Text>
+            <Block>{NavbarCategoryScreen({navigation})}</Block> 
             <Text> Chosen Category{chosenCategory.category_name}.</Text>
-            
             {subcategoryList? <Text>Sub Categories</Text> : null}
             
             {subcategoryList?
@@ -90,25 +85,20 @@ export default function CategoryScreen({ route, navigation }) {
               }) 
               : null   
             }
-
+            <Text>Product List</Text>
             {productList? 
               <FlatList keyExtractor={item => item.prd_id.toString()}  
               data={productList}  renderItem={renderProduct}  
               contentContainerStyle={{ flexGrow: 1}}  /> 
               :
-              <Text>Loading ....</Text>
-            }
-          
-            { authState.is_login? <Text>Login</Text>: <Text>NO</Text>}
-   
+              <Text>No any product found</Text>
+            } 
         </View>
     )
 }
 
 
-  const styles = StyleSheet.create({
-    
-    
+  const styles = StyleSheet.create({ 
     container: {
       flex: 1,
     },

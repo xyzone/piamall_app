@@ -8,7 +8,7 @@ import { SearchBar, ListItem, Header } from 'react-native-elements';
 import { Text, Button, Block, NavBar, Icon } from 'galio-framework'
 import { Context as AuthContext } from '../../contexts/AuthContext';
 import { DemoProudcts, DemoCategories } from '../../contexts/TestData';
-import  NavbarScreen  from '../NavbarScreen';
+import  {NavBarScreen}  from '../NavbarScreen';
 import theme from '../../constants/Themes';
 import { GetCategoryList } from '../../apis/PIAMallApi'
 
@@ -76,7 +76,7 @@ export default function HomeScreen({navigation}) {
   return (
     <View  style={{flex: 1}}>  
           <Block>
-            {NavbarScreen({navigation})}
+            {NavBarScreen({navigation})}
           </Block>
             <SearchBar
               placeholder="Search Products ..."

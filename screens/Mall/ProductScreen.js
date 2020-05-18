@@ -3,7 +3,7 @@ import { StyleSheet, View, Picker  } from 'react-native';
 import { Text, Button, Block } from 'galio-framework'; 
 import { SliderBox } from 'react-native-image-slider-box'; 
 import { Context as AuthContext  } from '../../contexts/AuthContext'; 
-import  NavbarScreen  from '../NavbarScreen';
+import { NavBarScreen }  from '../NavbarScreen';
 import { GetProductDetail } from '../../apis/PIAMallApi'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
@@ -45,7 +45,7 @@ export default function ProductScreen({ route, navigation }) {
 
     return (
       <View  style={{flex: 1}}>  
-            <Block>{NavbarScreen({navigation})}</Block>
+            <Block>{NavBarScreen({navigation})}</Block>
             <Text>Category Product List token: {authState.authToken} {authState.is_login} {keyId}.</Text>
             <Text> SKU: {product.sku}</Text>
             <Text> Name: {product.product_name}</Text>

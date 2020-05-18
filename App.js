@@ -4,8 +4,7 @@ import { SplashScreen } from 'expo';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';  
-import LoginCheckScreen from './screens/LoginCheckScreen';
+import { createStackNavigator } from '@react-navigation/stack';   
 import LoginNavigator from './navigation/LoginNavigator';
 import MainNavigator from './navigation/MainNavigator';
 import useLinking from './navigation/useLinking';  
@@ -56,7 +55,6 @@ export default function App(props) {
             <Stack.Navigator screenOptions={{headerShown: false}}  >   
               <Stack.Screen name="LoginNavigator" component={ LoginNavigator } />
               <Stack.Screen name="MainNavigator" component={ MainNavigator } />   
-             
             </Stack.Navigator>
           </NavigationContainer>
         </View>

@@ -8,8 +8,13 @@ import { capPostData } from '../components/GeneralFunctions'
 
 export const PIAMallApi = axios.create({
     //baseURL: 'http://192.168.46.129:7150/en/'
+<<<<<<< HEAD
     baseURL: 'http://172.17.0.1:7150/en/'
     //baseURL: 'https://126d38b1.ngrok.io/en/'
+=======
+    baseURL: 'http://172.20.0.1:7150/en/' 
+    //baseURL: 'http://2769b496.ngrok.io/en/'
+>>>>>>> refs/remotes/origin/master
 })
 
 

@@ -1,10 +1,10 @@
 import * as React  from 'react'
  
-import {   StyleSheet, View, TouchableOpacity  } from 'react-native'; 
+import { StyleSheet, View, TouchableOpacity  } from 'react-native'; 
 import { Text, Button, Block, NavBar, Icon } from 'galio-framework' 
 import theme from '../constants/Themes';
 
-export default function NavBarScreen({navigation}){
+export function NavBarScreen({navigation}){
     return(
         <NavBar
             title="Mall"
@@ -31,4 +31,33 @@ export default function NavBarScreen({navigation}){
             style={Platform.OS === 'android' ? { marginTop: theme.SIZES.BASE } : null}
           /> 
     )
+}
+
+export function NavbarCategoryScreen({navigation}) {
+  return(
+    <NavBar
+        title="Back To Parent"
+        left={(
+          <TouchableOpacity onPress={() => navigation.openDrawer()}>
+            <Icon 
+              name="menu"
+              family="feather"
+              size={theme.SIZES.BASE}
+              color={theme.COLORS.ICON}
+            />
+          </TouchableOpacity>
+        )}
+        right= {(
+          <TouchableOpacity onPress={() => navigation.navigate('Main', {screen: 'Shopping Cart'})}>
+          <Icon 
+            name="shopping-cart"
+            family="feather"
+            size={theme.SIZES.BASE}
+            color={theme.COLORS.ICON}
+          />
+        </TouchableOpacity>
+        )} 
+        style={Platform.OS === 'android' ? { marginTop: theme.SIZES.BASE } : null}
+      /> 
+)
 }

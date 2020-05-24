@@ -14,8 +14,7 @@ export default function LinksScreen({navigation}) {
 
   const { logout, validateLogin } = React.useContext(AuthContext)
   
-  React.useEffect(() => {
-    console.log('Hit Account Screen')
+  React.useEffect(() => { 
     validateLogin()
   }, [])
 

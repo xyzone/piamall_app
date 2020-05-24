@@ -10,8 +10,8 @@ const SCREEN_WIDTH = Dimensions.get('window').width;
  
 export default function LoginScreen({navigation}) {
 
-    const [username, setUsername] = React.useState('')
-    const [password, setPassword] = React.useState('') 
+    const [username, setUsername] = React.useState('test1')
+    const [password, setPassword] = React.useState('1234!QAZ') 
     const { authState, login } = React.useContext(AuthContext)
     const [banners, setBanners] = React.useState([])
     
@@ -28,11 +28,11 @@ export default function LoginScreen({navigation}) {
     return (
         <View style={styles.container}>   
               <View> 
-                      <SliderBox images={banners}  
-                      autoplay circleLoop
-                      sliderBoxHeight={180}
-                      />
-                    </View>
+                <SliderBox images={banners}  
+                autoplay circleLoop
+                sliderBoxHeight={180}
+                />
+              </View>
 
             <KeyboardAvoidingView
               contentContainerStyle={styles.loginContainer}

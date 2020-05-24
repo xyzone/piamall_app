@@ -52,18 +52,16 @@ const login = (dispatch) => {
 }
 
 
-const validateLogin = (dispatch) => {
-    console.log('call Validate Login')
+const validateLogin = (dispatch) => { 
     return (
         async () => {
             const token = await AsyncStorage.getItem('authToken')
             if (token)
             {                
                let api_response = await ValidateClientApi(token)
-               if (api_response.data.result){
-                   console.log('token', token)
+               if (api_response.data.result){ 
                    dispatch({type: 'login', payload: {is_login: true, authToken: token}})
-                   navigateTo('MainNavigator')
+                   // navigateTo('Main1Navigator')
                }else{
                    dispatch({type: 'logout'}) 
                    navigateTo('LoginNavigator', {screen: 'LoginScreen'})

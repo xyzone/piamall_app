@@ -6,8 +6,7 @@ import { RectButton, ScrollView } from 'react-native-gesture-handler';
 import { Context as AuthContext } from '../../contexts/AuthContext'
 export default function LinksScreen({navigation}) {
   const { validateLogin} = React.useContext(AuthContext)
-  React.useEffect(() =>{
-    console.log('Hit Links Screen')
+  React.useEffect(() =>{ 
    // validateLogin()
   }, [])
 

@@ -7,8 +7,7 @@ import { Context as AuthContext } from '../../contexts/AuthContext'
 export default function OrderScreen({navigation}) {
   
   const {validateLogin} = React.useContext(AuthContext)
-  React.useEffect(() => {
-    console.log('Hit Order Screen')
+  React.useEffect(() => { 
     validateLogin()
   }, [])
   return (

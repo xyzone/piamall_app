@@ -6,15 +6,8 @@ import { config_form_data } from '../apis/ApiDataForm'
 import { capPostData } from '../components/GeneralFunctions'
 
 
-export const PIAMallApi = axios.create({
-    //baseURL: 'http://192.168.46.129:7150/en/'
-<<<<<<< HEAD
-    baseURL: 'http://172.17.0.1:7150/en/'
-    //baseURL: 'https://126d38b1.ngrok.io/en/'
-=======
-    baseURL: 'http://172.20.0.1:7150/en/' 
-    //baseURL: 'http://2769b496.ngrok.io/en/'
->>>>>>> refs/remotes/origin/master
+export const PIAMallApi = axios.create({ 
+    baseURL: 'http://192.168.1.134:7150/en/'  
 })
 
 
@@ -62,7 +55,6 @@ export async function GetProductDetail(idproduct){
     let token = await AsyncStorage.getItem('authToken')
     let get_data = {all: true, user_token: token, ids:"[" + idproduct.toString() + "]", test: [1,2,3].toString()}
     let api_response = await PIAMallApi.get('/api/api_product_detail/', 
-    {params: get_data})
-    console.log(api_response)
+    {params: get_data}) 
     return api_response
 }

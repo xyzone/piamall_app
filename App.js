@@ -7,11 +7,23 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';   
 import LoginNavigator from './navigation/LoginNavigator';
 import MainNavigator from './navigation/MainNavigator';
+import Main1Navigator from './navigation/Main1Navigator';
 import useLinking from './navigation/useLinking';  
 import { navigationRef } from './navigation/RootNavigation';
 import { Provider as AuthProvider } from './contexts/AuthContext'; 
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 const Stack = createStackNavigator();
-  
+
+const theme = {
+  ...DefaultTheme,
+  roundness: 2,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: '#3498db',
+    accent: '#f1c40f',
+  },
+};
+
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
   const [initialNavigationState, setInitialNavigationState] = React.useState(); 
@@ -48,6 +60,7 @@ export default function App(props) {
     return null;
   } else {
     return (
+      <PaperProvider  theme={theme}>
       <AuthProvider>
         <View style={styles.container} >
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}  
@@ -55,10 +68,12 @@ export default function App(props) {
             <Stack.Navigator screenOptions={{headerShown: false}}  >   
               <Stack.Screen name="LoginNavigator" component={ LoginNavigator } />
               <Stack.Screen name="MainNavigator" component={ MainNavigator } />   
+              <Stack.Screen name="Main1Navigator" component={ Main1Navigator } />   
             </Stack.Navigator>
           </NavigationContainer>
         </View>
       </AuthProvider>
+      </PaperProvider>
     );
   }
 }

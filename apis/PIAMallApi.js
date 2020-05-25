@@ -6,10 +6,9 @@ import { config_form_data } from '../apis/ApiDataForm'
 import { capPostData } from '../components/GeneralFunctions'
 
 
-export const PIAMallApi = axios.create({
-    //baseURL: 'http://192.168.46.129:7150/en/'
+export const PIAMallApi = axios.create({ 
     baseURL: 'http://172.17.0.1:7150/en/'
-    //baseURL: 'https://126d38b1.ngrok.io/en/'
+   // baseURL: 'http://192.168.1.134:7150/en/'  
 })
 
 

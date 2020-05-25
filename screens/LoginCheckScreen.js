@@ -5,16 +5,24 @@ import { Context as AuthContext  } from '../contexts/AuthContext';
  
 
 export default function LoginCheckScreen({navigation}) { 
-    const { validateLogin } = React.useContext(AuthContext)
-    console.log('checked login')
+    const { authState, validateLogin } = React.useContext(AuthContext)
+     
     React.useEffect( () => {  
-      validateLogin()
+      async function checkLogin(){
+        await validateLogin(); 
+        if(authState.is_login){
+          navigation.navigate('MainNavigator')
+        }else{
+          navigation.navigate('LoginScreen')
+        }
+      }
+
+      checkLogin();
+      
     }, []) 
     return (
         <View style={styles.container}>  
-            <Text>Please wait for processing....</Text>
-           
-          
+            <Text>Please wait for processing....  </Text>
         </View>
     )
 }

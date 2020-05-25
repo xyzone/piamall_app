@@ -26,7 +26,6 @@ export default function HomeScreen({navigation}) {
     } 
   }
 
-
   React.useEffect(() => {
     validateLogin()
     
@@ -40,9 +39,7 @@ export default function HomeScreen({navigation}) {
     
     setBanners(
       [
-        "https://www.cportal.com.au/static/shoppingcart/images/banner1.png",
-        "https://www.cportal.com.au/static/shoppingcart/images/banner2.png",
-        "https://www.cportal.com.au/static/shoppingcart/images/banner3.png"
+        "https://www.cportal.com.au/static/shoppingcart/images/banner1.png",       
       ]
     );
   }, [] ) 
@@ -80,7 +77,11 @@ export default function HomeScreen({navigation}) {
           </Block>
             <SearchBar
               placeholder="Search Products ..."
-              onChangeText={(val) => {setKeywords(val)}}
+              onChangeText={(val) => {
+                setKeywords(val)
+              
+              }}
+              onSubmitEditing={({nativeEvent})=>console.log(nativeEvent.text)}
               value={keywords} 
           />
        
@@ -104,8 +105,12 @@ export default function HomeScreen({navigation}) {
             }
             <Block style={{justifyContent: 'center', alignItems:'center'}}>
               <Button round size="small" color="#50C7C7" onPress={()=>{getCategory()}}  >Refresh </Button>
+
               <Button round size="small" color="success"
-                onPress={()=>{navigation.navigate('CategorySreen')}}  >Go Shopping Now </Button>
+                onPress={()=>{navigation.navigate('MainNavigator')}}  > Draw 1 </Button>
+
+              <Button round size="small" color="success"
+                onPress={()=>{navigation.navigate('Main1Navigator')}}  > Draw 2 </Button>
             </Block>                 
       </View>
  

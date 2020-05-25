@@ -33,10 +33,11 @@ export function NavBarScreen({navigation}){
     )
 }
 
-export function NavbarCategoryScreen({navigation}) {
+export function NavbarCategoryScreen({route, navigation}) {
+  const { param_chosen_category } = route.params 
   return(
     <NavBar
-        title="Back To Parent"
+        title={param_chosen_category.category_name}
         left={(
           <TouchableOpacity onPress={() => navigation.openDrawer()}>
             <Icon 

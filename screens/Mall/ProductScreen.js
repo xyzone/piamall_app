@@ -16,8 +16,7 @@ export default function ProductScreen({ route, navigation }) {
     const [isDatePickerVisible, setDatePickerVisibility] = React.useState(false);
     async function getProduct(keyId){
       let product_detail = await GetProductDetail(keyId)
-      if (product_detail.data.result){
-        console.log(product_detail.data.instances.data)
+      if (product_detail.data.result){  
         setProduct(product_detail.data.instances.data[0]) 
         setProductImages(
           product_detail.data.instances.data[0].image_urls

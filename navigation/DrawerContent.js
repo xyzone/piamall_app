@@ -18,11 +18,18 @@ import {
 } from '@react-navigation/drawer';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
- 
+import { Context as AuthContext } from '../contexts/AuthContext'; 
 
 export function DrawerContent(props) {
-
+    const { logout, validateLogin } = React.useContext(AuthContext)
     const paperTheme = useTheme(); 
+
+
+    const logoutFn = async() => {
+        await logout();
+            
+    } 
+
 
     return(
         <View style={{flex:1}}>
@@ -64,7 +71,7 @@ export function DrawerContent(props) {
                                 />
                             )}
                             label="Home"
-                            onPress={() => {props.navigation.navigate('Home')}}
+                            onPress={() => {props.navigation.navigate('HomeScreen')}}
                         />
                         <DrawerItem 
                             icon={({color, size}) => (
@@ -75,7 +82,7 @@ export function DrawerContent(props) {
                                 />
                             )}
                             label="Profile"
-                            onPress={() => {props.navigation.navigate('Profile')}}
+                            onPress={() => {props.navigation.navigate('My Account')}}
                         />
                         <DrawerItem 
                             icon={({color, size}) => (
@@ -86,7 +93,7 @@ export function DrawerContent(props) {
                                 />
                             )}
                             label="Bookmarks"
-                            onPress={() => {props.navigation.navigate('BookmarkScreen')}}
+                            onPress={() => {props.navigation.navigate('Main1Navigator')}}
                         />
                         <DrawerItem 
                             icon={({color, size}) => (
@@ -133,7 +140,7 @@ export function DrawerContent(props) {
                         />
                     )}
                     label="Sign Out"
-                    onPress={() => { }}
+                    onPress={() => { logoutFn()}}
                 />
             </Drawer.Section>
         </View>

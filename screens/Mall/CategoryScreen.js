@@ -1,7 +1,7 @@
 import * as React  from 'react'
 import { StyleSheet, View, FlatList, TouchableOpacity } from 'react-native';  
 import { Block, NavBar, Icon } from 'galio-framework'
-import { Button, Divider, Text } from 'react-native-paper';
+import { Button, Divider, Text, List } from 'react-native-paper';
 import { SearchBar, ListItem, Header } from 'react-native-elements';
 import { Context as AuthContext  } from '../../contexts/AuthContext'; 
 import {NavBarScreen, NavbarCategoryScreen}  from '../NavbarScreen';
@@ -16,6 +16,7 @@ export default function CategoryScreen({ route, navigation }) {
     const [ chosenCategory, setChosenCategory ] = React.useState('')
     const [ subcategoryList, setSubcategoryList ] = React.useState([])
     const [ productList, setProductList ] = React.useState([]) 
+    const [ categoryExpand, setCategoryExpand ] = React.useState(false) 
 
 
     async function getSubCategory(category_id){
@@ -74,30 +75,12 @@ export default function CategoryScreen({ route, navigation }) {
       </TouchableOpacity>
       )
     }
+ 
   
     return (
-      <View  style={{flex: 1}}>  
+      <View  style={styles.container}>  
             <Block>{ NavbarCategoryScreen({ navigation, route })}</Block> 
-         
-            <Divider />
-            <View style={styles.categoryNaviContainer}>
-            {subcategoryList?               
-               subcategoryList.map((item) => {
-                return(
-                  <View style={styles.categoryColumn}>
-                    <Button icon="arrow-right-bold" mode="outlined"   onPress={() => navigation.navigate('CategorySreen', 
-                    { parent_category: param_chosen_category,  param_chosen_category: item }) } >
-                    {item.category_name}
-                    </Button>   
-                     <Divider />
-                  </View>
-                )
-              }) 
-              : null   
-            }
-
-          </View>
-        {parent_category ? 
+            {parent_category ? 
             
             <Button icon="arrow-left-thick" mode="contained" onPress={() => navigation.navigate('CategorySreen',  { parent_category: null,  param_chosen_category: parent_category }) }>
               Back to {parent_category.category_name}
@@ -105,12 +88,36 @@ export default function CategoryScreen({ route, navigation }) {
         :  
             <Button icon="arrow-left-thick" mode="contained"    onPress={() => navigation.navigate('HomeScreen')}>
               Back to Home
-             </Button> 
-      
-        
-        }  
+             </Button>  
+        }    
+            <Divider />
+            <View  >
 
-            <Text>Product List</Text>
+            {subcategoryList?    
+            <List.Accordion
+              title={chosenCategory.category_name}
+              left={props => <List.Icon {...props} icon="bell" />}
+              expanded={categoryExpand} 
+              onPress={() => {setCategoryExpand(!categoryExpand)}}
+            > 
+            {subcategoryList?          
+               subcategoryList.map((item) => {
+                return( 
+                  <List.Item  key={item.id.toString()} 
+                    title={item.category_name}
+                    left={props => <List.Icon {...props} icon="arrow-right-bold-circle" />}
+                    onPress={() => navigation.navigate('CategorySreen', 
+                    { parent_category: param_chosen_category,  param_chosen_category: item }) } /> 
+                 
+                )
+              }) 
+              : null   
+            }
+             
+              </List.Accordion>
+            : null}
+
+          </View> 
             {productList? 
               <FlatList keyExtractor={item => item.prd_id.toString()}  
               data={productList}  renderItem={renderProduct}  
@@ -139,5 +146,5 @@ export default function CategoryScreen({ route, navigation }) {
       alignItems:'flex-start', 
       
     },
- 
+       
   });  

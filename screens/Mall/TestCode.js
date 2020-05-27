@@ -1,6 +1,5 @@
 import * as React  from 'react'
-import { StyleSheet, View, Picker, Dimensions, ScrollView  } from 'react-native';  
-import {WebView} from 'react-native-webview';
+import { StyleSheet, View, Picker  } from 'react-native';  
 import { Block } from 'galio-framework'; 
 import { SliderBox } from 'react-native-image-slider-box'; 
 
@@ -17,8 +16,6 @@ export default function ProductScreen({ route, navigation }) {
     const [ productImages, setProductImages ] = React.useState([])
     const [selectedValue, setSelectedValue] = React.useState(0);
     const [isDatePickerVisible, setDatePickerVisibility] = React.useState(false);
-
-    const SCREEN_WIDTH = Dimensions.get('window').width;
     async function getProduct(keyId){
       let product_detail = await GetProductDetail(keyId)
       if (product_detail.data.result){  
@@ -45,9 +42,10 @@ export default function ProductScreen({ route, navigation }) {
     const handleConfirm = (date) => {
       console.warn("A date has been picked: ", date);
       hideDatePicker();
-    }; 
+    };
+    console.log(product)
     return (
-       <View  style={{flex: 1}}>  
+      <View  style={{flex: 1}}>  
             <Block>{NavBarScreen({navigation})}</Block> 
             {chosen_category?  
             <Button icon="arrow-left-thick" mode="contained" onPress={() => navigation.navigate('CategorySreen', 
@@ -55,47 +53,59 @@ export default function ProductScreen({ route, navigation }) {
             :null} 
             
             <Title>{product.product_name}</Title>
+            <Subheading> SKU: {product.sku}</Subheading>
             
-            <ScrollView>
             <View >
                   {product.primary_image_url ?  
                   <SliderBox images={productImages}  
                       autoplay circleLoop  
-                      sliderBoxHeight={200} 
+                      sliderBoxHeight={180} 
                       resizeMethod={'resize'}
                       resizeMode={'contain'}
                   />
                   : null } 
               </View>
-            
-              <View style={styles.container}>
-            <View style={styles.column}>    
-            <Subheading> SKU: {product.sku}</Subheading>
-  
-            </View>              
+            <View style={styles.container}>
 
 
-         
+
+            <Paragraph>{product.detail}</Paragraph> 
             <View style={styles.space_between_columns}/>
             <View style={styles.column}>    
-            <Subheading> SKU: {product.sku}</Subheading>
-  
-            </View>    
-            </View>                       
-              <WebView 
-                automaticallyAdjustContentInsets={false}             
-                javaScriptEnabled={true}
-                domStorageEnabled={true}
-                decelerationRate="normal"
-                startInLoadingState={true}
-                scrollEnabled={false}
-                //scalesPageToFit={isAndroid ? false : true}
-                style={{height: 2000}}
-                originWhitelist={['*']}
-                source={{ html: `<div style="font-size:30pt">${product.detail}</div>` }}            
-              />                
-            </ScrollView>         
+                    
+                  <Picker selectedValue={selectedValue}
+                    style={{ height: 50, width: 150 }}
+                    onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+                  >
+                    <Picker.Item label="1" value="1" />
+                    <Picker.Item label="2" value="2" />
+                  </Picker>
+
+
+
+                  <View>
+                  <Button onPress={showDatePicker}>Show Date Picker</Button>
+                  <DateTimePickerModal
+                    isVisible={isDatePickerVisible}
+                    mode="date"
+                    onConfirm={handleConfirm}
+                    onCancel={hideDatePicker}
+                  />
+                </View>    
+
+
+                <Button                  
+                containerStyle={{ flex: -1 }}
+                buttonStyle={styles.button} 
+                titleStyle={styles.textButton} 
+                onPress={()=>{navigation.navigate('ProductScreen')}}  > Check Product!
+                </Button>
+              </View>    
+            </View>
             
+           
+            { authState.is_login? <Text>Login</Text>: <Text>NO</Text>}
+   
         </View>
     )
 }
@@ -114,10 +124,11 @@ const styles = StyleSheet.create({
     flexDirection:'column',
     justifyContent:'space-between',
     alignItems:'center',
-    height:100, 
+    height:200,
+    width:150
   },
   space_between_columns:{
-    width:10
+    width:100
   },
   box: {
     height:50,

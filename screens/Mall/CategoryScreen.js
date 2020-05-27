@@ -60,7 +60,7 @@ export default function CategoryScreen({ route, navigation }) {
       return (
         <TouchableOpacity key={item.prd_id}
         onPress={() =>
-            navigation.navigate('ProductScreen', { keyId: item.prd_id })
+            navigation.navigate('ProductScreen', { keyId: item.prd_id, chosen_category: param_chosen_category, parent_category: parent_category })
         }  >
       <ListItem
         key={item.prouduct_id}
@@ -141,7 +141,7 @@ export default function CategoryScreen({ route, navigation }) {
       alignItems:'flex-start', 
     },
     categoryColumn: {
-      flexDirection:'column',
+       flexDirection:'column',
       justifyContent:'flex-start',
       alignItems:'flex-start', 
       

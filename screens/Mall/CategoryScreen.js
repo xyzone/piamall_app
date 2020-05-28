@@ -29,6 +29,8 @@ export default function CategoryScreen({ route, navigation }) {
       }
     }
 
+    
+
     async function getProducts(category_id){
       let product_list = await GetProductList(category_id)
       if (product_list.data.result){ 
@@ -44,7 +46,10 @@ export default function CategoryScreen({ route, navigation }) {
     },[isFocused]);
 
     React.useEffect( () => {    
-      validateLogin() 
+      async function checkLogin(){
+        await validateLogin()
+      } 
+      checkLogin() 
       refreshPage(param_chosen_category)
     }, [param_chosen_category]) 
     
@@ -62,16 +67,16 @@ export default function CategoryScreen({ route, navigation }) {
         onPress={() =>
             navigation.navigate('ProductScreen', { keyId: item.prd_id, chosen_category: param_chosen_category, parent_category: parent_category })
         }  >
-      <ListItem
-        key={item.prouduct_id}
-        title={item.product_name}
-        subtitle={item.product_name}
-        leftAvatar={{
-          title: item.product_name
-        }}
-        bottomDivider
-        chevron
-      />
+          <ListItem
+            key={item.prouduct_id}
+            title={item.product_name}
+            subtitle={item.product_name} 
+            leftAvatar={ 
+              item.primary_image_url? {source: {uri:  item.primary_image_url  }} : {title: item.product_name}
+             }
+            bottomDivider
+            chevron
+          />
       </TouchableOpacity>
       )
     }

@@ -30,7 +30,10 @@ export default function ProductScreen({ route, navigation }) {
 
     } 
     React.useEffect( () => {  
-      validateLogin()
+      async function checkLogin(){
+        await validateLogin()
+      } 
+      checkLogin() 
       getProduct(keyId)      
     }, []) 
 

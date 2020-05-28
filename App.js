@@ -60,7 +60,7 @@ export default function App(props) {
     return null;
   } else {
     return (
-      <PaperProvider  theme={theme}>
+      <PaperProvider theme={theme}>
       <AuthProvider>
         <View style={styles.container} >
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}  

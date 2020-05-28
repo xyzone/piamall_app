@@ -8,7 +8,10 @@ export default function OrderDetailScreen({navigation}) {
     const { validateLogin } = useContext(AuthContext)
   
     useEffect( () => {  
-      validateLogin()
+      async function checkLogin(){
+        await validateLogin()
+      } 
+      checkLogin() 
     }, []) 
      
     return (

@@ -27,16 +27,16 @@ export default function HomeScreen({navigation}) {
   }
 
   React.useEffect(() => {
-    validateLogin()
-    
+    async function checkLogin(){
+      await validateLogin()
+    } 
+    checkLogin() 
     
   }, []) 
-  React.useEffect(() => {
-    
+  React.useEffect(() => { 
     getCategory()
   }, [])
-  React.useEffect(() => { 
-    
+  React.useEffect(() => {  
     setBanners(
       [
         "https://www.cportal.com.au/static/shoppingcart/images/banner1.png",       

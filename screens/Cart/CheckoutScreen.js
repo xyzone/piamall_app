@@ -9,7 +9,10 @@ export default function LoginScreen({navigation}) {
     const { validateLogin } = useContext(AuthContext)
   
     useEffect( () => {  
-      validateLogin()
+      async function checkLogin(){
+        await validateLogin()
+      } 
+      checkLogin() 
     }, []) 
     return (
         <View style={styles.container}>  

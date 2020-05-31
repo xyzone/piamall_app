@@ -70,7 +70,7 @@ export default function CategoryScreen({ route, navigation }) {
           <ListItem
             key={item.prouduct_id}
             title={item.product_name}
-            subtitle={item.product_name} 
+            subtitle={`Price: \$${item.sales_price}  Reward Points: ${item.max_reward_point}` } 
             leftAvatar={ 
               item.primary_image_url? {source: {uri:  item.primary_image_url  }} : {title: item.product_name}
              }

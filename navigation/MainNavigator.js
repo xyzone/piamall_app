@@ -11,7 +11,7 @@ export default function MainNavigator() {
   return (
     <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}> 
       <Drawer.Screen name="Mall Home" component={ MallNavigator } />    
-      <Drawer.Screen name="Shopping Cart" component={CartNavigator} /> 
+      <Drawer.Screen name="ShoppingCartScreen" component={CartNavigator} /> 
       <Drawer.Screen name="My Account" component={ BottomTabNavigator } />      
     </Drawer.Navigator>
   );

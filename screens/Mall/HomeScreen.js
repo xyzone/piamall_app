@@ -26,12 +26,8 @@ export default function HomeScreen({navigation}) {
     } 
   }
 
-  React.useEffect(() => {
-    async function checkLogin(){
-      await validateLogin()
-    } 
-    checkLogin() 
-    
+  React.useEffect(() => {     
+    validateLogin()     
   }, []) 
   React.useEffect(() => { 
     getCategory()

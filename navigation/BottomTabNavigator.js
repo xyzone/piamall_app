@@ -64,11 +64,6 @@ function getHeaderTitle(route) {
   switch (routeName) {
     case 'Home':
       return 'PIA Mall';
-    case 'ShoppingCart':
-      return 'Shopping Cart';
-    case 'Account':
-      return 'My Account';
-    case 'Orders':
-      return 'Orders';
+     
   }
 }

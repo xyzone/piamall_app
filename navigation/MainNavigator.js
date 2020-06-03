@@ -10,9 +10,9 @@ const Drawer = createDrawerNavigator();
 export default function MainNavigator() {
   return (
     <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}> 
-      <Drawer.Screen name="Mall Home" component={ MallNavigator } />    
-      <Drawer.Screen name="ShoppingCartScreen" component={CartNavigator} /> 
-      <Drawer.Screen name="My Account" component={ BottomTabNavigator } />      
+      <Drawer.Screen name="MallNavi" component={ MallNavigator } />    
+      <Drawer.Screen name="ShoppingCartNavi" component={CartNavigator} /> 
+      <Drawer.Screen name="AccountNavi" component={ BottomTabNavigator } />      
     </Drawer.Navigator>
   );
 } 

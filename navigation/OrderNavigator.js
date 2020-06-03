@@ -5,7 +5,7 @@ import OrderScreen from '../screens/Order/OrderScreen';
 import OrderDetailScreen from '../screens/Order/OrderDetailScreen';   
 
 const OrderNavi = createStackNavigator();
-const INITIAL_ROUTE_NAME = 'Order Home';
+const INITIAL_ROUTE_NAME = 'OrderScreen';
 OrderNavi.navigationOptions = {
   headerMode: 'none',
   header: null,

@@ -148,10 +148,10 @@ export default function ProductScreen({ route, navigation }) {
                     <Button 
                     color="#3471eb" 
                     labelStyle={{ color: "white", fontSize: 12 }}
-                  icon="cart-arrow-right"  mode="contained" 
+                    icon="cart-arrow-right"  mode="contained" 
                     
                     onPress={() => {hideAddToCart(); 
-                    navigation.navigate('ShoppingCartScreen')}}>Checkout</Button>
+                    navigation.navigate('ShoppingCartNavi', {screem: 'CartScreen'})}}>Checkout</Button>
                   </Dialog.Actions>
               </Dialog>
               : 

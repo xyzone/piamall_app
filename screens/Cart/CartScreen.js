@@ -4,6 +4,7 @@ import * as React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { RectButton, ScrollView } from 'react-native-gesture-handler';
 import { Context as AuthContext } from '../../contexts/AuthContext'
+import { NavBarScreen }  from '../NavbarScreen';
 export default function LinksScreen({navigation}) {
   const { validateLogin} = React.useContext(AuthContext)
   React.useEffect(() =>{ 
@@ -15,12 +16,13 @@ export default function LinksScreen({navigation}) {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+      <View>{NavBarScreen({navigation})}</View> 
        <Button  
                 title="CheckoutNavi!"
                 containerStyle={{ flex: -1 }}
                 buttonStyle={styles.button} 
                 titleStyle={styles.textButton} 
-                onPress={()=>{navigation.navigate('Shopping Cart', {screen: 'CheckoutScreen'})}}
+                onPress={()=>{navigation.navigate('ShoppingCartNavi', {screen: 'CheckoutScreen'})}}
             /> 
       <OptionButton
         icon="md-school"

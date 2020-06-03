@@ -7,7 +7,7 @@ import CategoryScreen from '../screens/Mall/CategoryScreen';
 import ProductScreen from '../screens/Mall/ProductScreen';  
 import SearchScreen from '../screens/Mall/ProductScreen';
 const MallNavi = createStackNavigator();
-const INITIAL_ROUTE_NAME = 'Mall Home';
+const INITIAL_ROUTE_NAME = 'MallScreen';
 
 
 MallNavi.navigationOptions = {
@@ -28,7 +28,7 @@ export default function MallNavigator({ navigation, route }) {
         name="HomeScreen"
         component={HomeScreen}
         options={{
-          headerTitle: 'Mall Home',
+          headerTitle: 'MallScreen',
           
         }}
       />     

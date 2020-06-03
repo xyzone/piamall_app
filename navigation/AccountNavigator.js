@@ -4,7 +4,7 @@ import * as React from 'react';
 import AccountScreen from '../screens/Account/AccountScreen';  
 
 const AccountNavi = createStackNavigator();
-const INITIAL_ROUTE_NAME = 'Accout Home';
+const INITIAL_ROUTE_NAME = 'AccountScreen';
 AccountNavi.navigationOptions = {
   headerMode: 'none',
   header: null,

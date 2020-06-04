@@ -3,7 +3,7 @@ import React, {createContext, useReducer} from 'react'
 import {AsyncStorage} from 'react-native';  
 import {navigateTo} from '../navigation/RootNavigation'; 
 import { ValidateClientApi, AuthClientApi, LogoutClientApi } from '../apis/PIAMallApi'; 
-
+import MapDataContext from './mapDataContext'
  
 const initialValue = {
     is_login: false,
@@ -107,8 +107,8 @@ const authProvider = (props) => {
         </authContext.Provider>
     )
 } 
-export const {Context, Provider} = {Context: authContext, Provider: authProvider}
+//export const {Context, Provider} = {Context: authContext, Provider: authProvider}
  
-//const mapContext = MapDataContext(_authReducer, 'authState', 
-//                                  {login, validateLogin, logout}, initialValue)
-//export const {Context, Provider} = mapContext
+const mapContext = MapDataContext(_authReducer, 'authState', 
+                                  {login, validateLogin, logout}, initialValue)
+export const {Context, Provider} = mapContext

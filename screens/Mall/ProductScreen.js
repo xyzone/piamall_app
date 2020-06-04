@@ -1,5 +1,6 @@
 import * as React  from 'react'
-import { StyleSheet, View, Picker, Dimensions, ScrollView  } from 'react-native';  
+import { StyleSheet, View, Dimensions, ScrollView  } from 'react-native';  
+import { Dropdown } from 'react-native-material-dropdown';
 import {WebView} from 'react-native-webview';
 import { Block } from 'galio-framework'; 
 import { SliderBox } from 'react-native-image-slider-box'; 
@@ -65,6 +66,7 @@ export default function ProductScreen({ route, navigation }) {
 
     return (
        <View  style={{flex: 1}}>  
+ 
             <Block>{NavBarScreen({navigation})}</Block> 
             {chosen_category?  
             <Button icon="arrow-left-thick" mode="contained" onPress={() => navigation.navigate('CategorySreen', 
@@ -95,23 +97,27 @@ export default function ProductScreen({ route, navigation }) {
             </View>     
             <View style={styles.space_between_columns}/>
             <View style={styles.column}>    
-
-             <Picker selectedValue={purchaseQty}
-                    style={{ height: 50, width: 150 }}
-                    onValueChange={(itemValue, itemIndex) => setPurchaseQty(itemValue)}
-                  >
-                    <Picker.Item label="Qty" value="0" />
-                    <Picker.Item label="1" value="1" />
-                    <Picker.Item label="2" value="2" />
-                  </Picker>
-            <Button color="#f08e25" 
-               labelStyle={{ color: "white", fontSize: 16 }}
-              icon="cart-plus"  mode="contained" onPress={ () => { addToCard()}}>Add to Cart</Button>
+            <View style={{ width: 96, marginLeft: 8 }}>        
+             <Dropdown selectedValue={purchaseQty} 
+                    onChangeText={(itemValue) => setPurchaseQty(itemValue)}
+                    label="Qty"
+                    data={[{value: 1}, {value:2 }]}
+                  > 
+             </Dropdown>
+             </View>
+             <Button color="#f08e25" 
+               labelStyle={{ color: "white", fontSize: 12 }}
+                icon="cart-plus"  mode="contained" onPress={ () => { addToCard()}}>Add to Cart
+             </Button>
   
             </View>    
             </View>      
             
-            <Divider />                 
+            <Divider />               
+            
+          
+
+
               <WebView 
                 automaticallyAdjustContentInsets={false}             
                 javaScriptEnabled={true}
@@ -123,7 +129,8 @@ export default function ProductScreen({ route, navigation }) {
                 style={{height: 2000}}
                 originWhitelist={['*']}
                 source={{ html: `<div style="font-size:30pt">${product.detail}</div>` }}            
-              />                
+              />           
+    
             </ScrollView>     
             <Portal>              
                 {apiAddToCart.result?
@@ -183,6 +190,11 @@ export default function ProductScreen({ route, navigation }) {
 
   
 const styles = StyleSheet.create({
+  picker_container: {
+    flex: 1,
+    paddingTop: 40,
+    alignItems: "center"
+  },
   container: {
     flex: 1,
     flexDirection:'row',
@@ -194,7 +206,7 @@ const styles = StyleSheet.create({
     flexDirection:'column',
     justifyContent:'space-evenly',
     alignItems:'flex-start',
-    height:100, 
+    height:200, 
   },
   space_between_columns:{
     width:25

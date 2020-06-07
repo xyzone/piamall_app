@@ -1,4 +1,5 @@
 import { createStackNavigator } from '@react-navigation/stack';
+import {DrawerButton} from 'react-native'
 import * as React from 'react';
  
 import CartScreen from '../screens/Cart/CartScreen';   
@@ -22,6 +23,9 @@ export default function CartNavigator({ navigation, route }) {
         component={CartScreen}
         options={{
           headerTitle: 'CartScreen', 
+          headerLeft: () => (
+            <DrawerButton onPress={() => navigation.toggleDrawer()} />
+          ),
         }}
       />     
       <CartNavi.Screen

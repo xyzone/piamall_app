@@ -64,7 +64,10 @@ export default function ProductScreen({ route, navigation }) {
     }
 
     return (
-       <View  style={{flex: 1}}>  
+       
+        <View style={{flex: 1}}>  
+            
+
             <Block>{NavBarScreen({navigation})}</Block> 
             {chosen_category?  
             <Button icon="arrow-left-thick" mode="contained" onPress={() => navigation.navigate('CategorySreen', 
@@ -87,43 +90,49 @@ export default function ProductScreen({ route, navigation }) {
                   : null } 
               </View>
               <Divider />
-              <View style={styles.container}>
-            <View style={styles.column}>    
-              <Text> SKU: {product.sku}</Text>
-              <Text> Price: ${product.sales_price}</Text>
-              <Text> Reward Points: {product.max_reward_point}</Text>
-            </View>     
-            <View style={styles.space_between_columns}/>
-            <View style={styles.column}>    
-
-             <Picker selectedValue={purchaseQty}
-                    style={{ height: 50, width: 150 }}
-                    onValueChange={(itemValue, itemIndex) => setPurchaseQty(itemValue)}
-                  >
-                    <Picker.Item label="Qty" value="0" />
-                    <Picker.Item label="1" value="1" />
-                    <Picker.Item label="2" value="2" />
-                  </Picker>
-            <Button color="#f08e25" 
-               labelStyle={{ color: "white", fontSize: 16 }}
-              icon="cart-plus"  mode="contained" onPress={ () => { addToCard()}}>Add to Cart</Button>
-  
-            </View>    
-            </View>      
             
-            <Divider />                 
-              <WebView 
-                automaticallyAdjustContentInsets={false}             
-                javaScriptEnabled={true}
-                domStorageEnabled={true}
-                decelerationRate="normal"
-                startInLoadingState={true}
-                scrollEnabled={false}
-                //scalesPageToFit={isAndroid ? false : true}
-                style={{height: 2000}}
-                originWhitelist={['*']}
-                source={{ html: `<div style="font-size:30pt">${product.detail}</div>` }}            
-              />                
+              {product.sku ?
+              <View>
+                <View style={styles.container}>
+
+                <View style={styles.column}>    
+                  <Text> SKU: {product.sku}</Text>
+                  <Text> Price: ${product.sales_price}</Text>
+                  <Text> Reward Points: {product.max_reward_point}</Text>
+                </View>     
+                <View style={styles.space_between_columns}/>
+                <View style={styles.column}>    
+
+                <Picker selectedValue={purchaseQty}
+                        style={{ height: 50, width: 150 }}
+                        onValueChange={(itemValue, itemIndex) => setPurchaseQty(itemValue)}
+                      >
+                        <Picker.Item label="Qty" value="0" />
+                        <Picker.Item label="1" value="1" />
+                        <Picker.Item label="2" value="2" />
+                      </Picker>
+                <Button color="#f08e25" 
+                  labelStyle={{ color: "white", fontSize: 16 }}
+                  icon="cart-plus"  mode="contained" onPress={ () => { addToCard()}}>Add to Cart</Button>
+      
+                </View>    
+                </View>      
+            
+              <Divider />                 
+                <WebView 
+                  automaticallyAdjustContentInsets={false}             
+                  javaScriptEnabled={true}
+                  domStorageEnabled={true}
+                  decelerationRate="normal"
+                  startInLoadingState={true}
+                  scrollEnabled={false}
+                  //scalesPageToFit={isAndroid ? false : true}
+                  style={{height: 2000}}
+                  originWhitelist={['*']}
+                  source={{ html: `<div style="font-size:30pt">${product.detail}</div>` }}            
+                />           
+                </View>
+              :<Text>Wait for processing .... </Text>}
             </ScrollView>     
             <Portal>              
                 {apiAddToCart.result?
@@ -176,6 +185,7 @@ export default function ProductScreen({ route, navigation }) {
               }
               
             </Portal>
+             
         </View>
     )
 }

@@ -16,7 +16,7 @@ export default function LinksScreen({navigation}) {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-      <View>{NavBarScreen({navigation})}</View> 
+       
        <Button  
                 title="CheckoutNavi!"
                 containerStyle={{ flex: -1 }}

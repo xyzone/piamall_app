@@ -1,5 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
-import {DrawerButton} from 'react-native'
+import {DrawerButton, View} from 'react-native';
+
+import {Button } from 'react-native-paper';
 import * as React from 'react';
  
 import CartScreen from '../screens/Cart/CartScreen';   
@@ -22,9 +24,18 @@ export default function CartNavigator({ navigation, route }) {
         name="CartScreen"
         component={CartScreen}
         options={{
-          headerTitle: 'CartScreen', 
-          headerLeft: () => (
-            <DrawerButton onPress={() => navigation.toggleDrawer()} />
+          headerTitle: 'Shopping Cart', 
+          headerRight: () => (            
+            <Button 
+            color="#345678" 
+            style={{marginRight:5}}
+            labelStyle={{ color: "white", fontSize: 13 }}
+              icon="arrow-left-bold-circle"  mode="contained" 
+            
+            onPress={() => navigation.navigate('HomeScreen') } >
+              Back to Home 
+            </Button>
+             
           ),
         }}
       />     
@@ -32,8 +43,20 @@ export default function CartNavigator({ navigation, route }) {
         name="CheckoutScreen"
         component={CheckoutScreen}
         options={{
-          headerTitle: 'CheckoutScreen',
-          headerLeft: null,          
+          headerLeft: null, 
+          headerTitle: 'Payment',
+          headerRight: () => (            
+            <Button 
+            color="#345678" 
+            style={{marginRight:5}}
+            labelStyle={{ color: "white", fontSize: 13 }}
+              icon="arrow-left-bold-circle"  mode="contained" 
+            
+            onPress={() => navigation.navigate('CartScreen') } >
+              Back to Cart
+            </Button>
+             
+          ),        
         }}
       />         
       

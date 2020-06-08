@@ -1,5 +1,5 @@
 import * as React  from 'react'
-import { StyleSheet, View, Dimensions, ScrollView  } from 'react-native';  
+import { StyleSheet, View, Dimensions, ScrollView, Picker  } from 'react-native';  
 import { Dropdown } from 'react-native-material-dropdown';
 import {WebView} from 'react-native-webview';
 import { Block } from 'galio-framework'; 
@@ -8,8 +8,8 @@ import { SliderBox } from 'react-native-image-slider-box';
 import { Button, Divider, Text, List, Title, Subheading, Paragraph, Dialog, Portal } from 'react-native-paper';
 import { Context as AuthContext  } from '../../contexts/AuthContext'; 
 import { NavBarScreen }  from '../NavbarScreen';
-import { GetProductDetail, GetAddToCart} from '../../apis/PIAMallApi'
-import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { GetProductDetail, AddToCartApi} from '../../apis/PIAMallApi'
+import DateTimePickerModal from "react-native-modal-datetime-picker"; 
 
 export default function ProductScreen({ route, navigation }) { 
     const { authState, validateLogin } = React.useContext(AuthContext)
@@ -28,8 +28,7 @@ export default function ProductScreen({ route, navigation }) {
         setProductImages(
           product_detail.data.instances.data[0].image_urls
         );
-      } 
-
+      }  
     } 
     React.useEffect( () => {  
       async function checkLogin(){
@@ -53,7 +52,7 @@ export default function ProductScreen({ route, navigation }) {
     }; 
 
     async function addToCard(){
-      let apiResponse = await GetAddToCart(product.prd_id, purchaseQty, product.sales_price, product.max_reward_point)
+      let apiResponse = await AddToCartApi(product.prd_id, purchaseQty, product.sales_price, product.max_reward_point)
       console.log(apiResponse.data)
       setApiAddToCart(apiResponse.data)
       setShowAddToCart(true)
@@ -102,13 +101,19 @@ export default function ProductScreen({ route, navigation }) {
               </View>     
               <View style={styles.space_between_columns}/>
               <View style={styles.column}>    
-              <View style={{ width: 96, marginLeft: 8 }}>        
-              <Dropdown selectedValue={purchaseQty} 
-                      onChangeText={(itemValue) => setPurchaseQty(itemValue)}
-                      label="Qty"
-                      data={[{value: 1}, {value:2 }]}
-                    > 
-              </Dropdown>
+              <View style={{ width: 96, marginLeft: 8 }}>
+
+
+              <Picker
+                selectedValue={purchaseQty} 
+                style={{height: 50, width: 100}}
+                onValueChange={(itemValue) => setPurchaseQty(itemValue)}>
+
+                <Picker.Item label="Qty" value="" />
+                <Picker.Item label="1" value="1" />
+                <Picker.Item label="2" value="2" />
+              </Picker>   
+ 
               </View>
               <Button color="#f08e25" 
                 labelStyle={{ color: "white", fontSize: 12 }}

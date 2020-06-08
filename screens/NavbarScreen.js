@@ -49,7 +49,7 @@ export function NavbarCategoryScreen({route, navigation}) {
           </TouchableOpacity>
         )}
         right= {(
-          <TouchableOpacity onPress={() => navigation.navigate('Main', {screen: 'Shopping Cart'})}>
+          <TouchableOpacity onPress={() => navigation.navigate('ShoppingCartNavi', {screen: 'CartScreen'})}>
           <Icon 
             name="shopping-cart"
             family="feather"

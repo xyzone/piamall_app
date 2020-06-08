@@ -9,8 +9,8 @@ import { capPostData, capPostDataNoEncry } from '../components/GeneralFunctions'
 const homeAPI = () => {
      
     return (axios.create({ 
-    baseURL: 'http://192.168.30.52:7150/en/'
-    //baseURL: 'http://192.168.1.134:7150/en/'   
+    //baseURL: 'http://192.168.30.52:7150/en/'
+    baseURL: 'http://192.168.1.134:7150/en/'   
  }))
 }
 
@@ -65,10 +65,17 @@ export async function GetProductDetail(idproduct){
     return api_response
 }
 
-export async function GetAddToCart(product_id, qty, unit_price, unit_reward_point){
+export async function AddToCartApi(product_id, qty, unit_price, unit_reward_point){
      
     let form_data = capPostDataNoEncry({product_id, qty, unit_price, unit_reward_point})
     let api_response = await PIAMallApi.post('/api/api_add_to_cart/',  form_data, config_form_data)
      
+    return api_response
+}
+
+
+export async function GetShoppingCart(){ 
+    let api_response = await PIAMallApi.get('/api/api_shopping_cart/', {params: {all: true}})
+    console.log(api_response)
     return api_response
 }

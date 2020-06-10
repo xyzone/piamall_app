@@ -1,7 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import {DrawerButton, View} from 'react-native';
 
-import {Button } from 'react-native-paper';
+import {Button, Text } from 'react-native-paper';
 import * as React from 'react';
  
 import CartScreen from '../screens/Cart/CartScreen';   
@@ -24,7 +24,8 @@ export default function CartNavigator({ navigation, route }) {
         name="CartScreen"
         component={CartScreen}
         options={{
-          headerTitle: 'Shopping Cart', 
+          headerLeft: () => (<Text>Shopping Cart</Text>), 
+          headerTitle: '',
           headerRight: () => (            
             <Button 
             color="#345678" 
@@ -43,8 +44,8 @@ export default function CartNavigator({ navigation, route }) {
         name="CheckoutScreen"
         component={CheckoutScreen}
         options={{
-          headerLeft: null, 
-          headerTitle: 'Payment',
+          headerLeft: () => (<Text>Payment</Text>), 
+          headerTitle: '',
           headerRight: () => (            
             <Button 
             color="#345678" 

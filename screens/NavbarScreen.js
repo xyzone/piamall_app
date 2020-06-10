@@ -11,6 +11,7 @@ export function NavBarScreen({navigation}){
             left={(
               <TouchableOpacity onPress={() => navigation.openDrawer()}>
                 <Icon 
+                  ios='ios-menu' android="md-menu" s
                   name="menu"
                   family="feather"
                   size={theme.SIZES.BASE}
@@ -21,6 +22,7 @@ export function NavBarScreen({navigation}){
             right= {(
               <TouchableOpacity onPress={() => navigation.navigate('ShoppingCartNavi', {screen: 'CartScreen'})}>
               <Icon 
+              style={{width: 300, height: 300}}
                 name="shopping-cart"
                 family="feather"
                 size={theme.SIZES.BASE}

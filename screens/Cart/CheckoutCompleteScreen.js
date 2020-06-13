@@ -4,7 +4,6 @@ import {   StyleSheet, View , ScrollView } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import { RadioButton, Divider, Button, Paragraph, Title, Subheading } from 'react-native-paper';
 import { Text } from 'react-native-elements';
-import { ProcessCheckout } from '../../apis/PIAMallApi'
 import { Context as AuthContext } from '../../contexts/AuthContext';  
 
 export default function CheckoutCompleteScreen({navigation, route}) { 
@@ -34,7 +33,7 @@ export default function CheckoutCompleteScreen({navigation, route}) {
               style={{marginRight:5}}
               labelStyle={{ color: "white", fontSize: 13 }}
               icon="arrow-right-bold-circle"  mode="contained" 
-              onPress={() => navigation.navigate('OrderNavigator', {screen: 'OrderDetailScreen', params: {order_data}}) } >
+              onPress={() => navigation.navigate('OrderNavigator', {screen: 'OrderDetailScreen', params: {token: order_data.order_token}}) } >
               View Order {order_data.order_id} Detail
             </Button>  
         </ScrollView>

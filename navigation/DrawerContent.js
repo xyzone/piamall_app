@@ -92,8 +92,8 @@ export function DrawerContent(props) {
                                 size={size}
                                 />
                             )}
-                            label="Bookmarks"
-                            onPress={() => {props.navigation.navigate('Main1Navigator')}}
+                            label="Order List"
+                            onPress={() => {props.navigation.navigate('OrderNavigator', {screen: 'OrderScreen'})}}
                         />
                         <DrawerItem 
                             icon={({color, size}) => (

@@ -9,9 +9,9 @@ import { capPostData, capPostDataNoEncry } from '../components/GeneralFunctions'
 const homeAPI = () => {
      
     return (axios.create({ 
-    baseURL: 'http://192.168.43.56:7150/en/'
+    //baseURL: 'http://192.168.43.56:7150/en/'
     //baseURL: 'http://192.168.30.52:7150/en/'
-    //baseURL: 'http://192.168.1.134:7150/en/'   
+    baseURL: 'http://192.168.1.115:7150/en/'   
  }))
 }
 
@@ -87,5 +87,21 @@ export async function ProcessCheckout(payment_type){
      
     let form_data = capPostDataNoEncry({payment_type})
     let api_response = await PIAMallApi.post('/api/api_checkout_payment/',  form_data, config_form_data)
+    return api_response
+}
+
+
+export async function GetOrderList(){
+    let token = await AsyncStorage.getItem('authToken')
+    let get_data = {all: true, user_token: token}
+    let api_response = await PIAMallApi.get('/api/api_order_list/',  {params: get_data}) 
+    return api_response
+}
+
+export async function GetOrderDetail(order_token){
+    let token = await AsyncStorage.getItem('authToken')
+    let get_data = {all: true, user_token: token, order_token}
+    let api_response = await PIAMallApi.get('/api/api_order_detail/',  {params: get_data})
+    console.log(api_response)
     return api_response
 }

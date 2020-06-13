@@ -82,7 +82,7 @@ export function DrawerContent(props) {
                                 />
                             )}
                             label="Profile"
-                            onPress={() => {props.navigation.navigate('AccountScreen')}}
+                            onPress={() => {props.navigation.navigate('AccountNavigator', {screen: 'AccountScreen'})}}
                         />
                         <DrawerItem 
                             icon={({color, size}) => (
@@ -103,8 +103,8 @@ export function DrawerContent(props) {
                                 size={size}
                                 />
                             )}
-                            label="Settings"
-                            onPress={() => {props.navigation.navigate('SettingScreen')}}
+                            label="OrderNavigator"
+                            onPress={() => {props.navigation.navigate('OrderNavigator')}}
                         />
                         <DrawerItem 
                             icon={({color, size}) => (
@@ -114,8 +114,9 @@ export function DrawerContent(props) {
                                 size={size}
                                 />
                             )}
-                            label="Support"
-                            onPress={() => {props.navigation.navigate('SupportScreen')}}
+                            label="OrderDetail"
+                            onPress={
+                                () => {props.navigation.navigate('OrderNavigator', {screen: 'OrderDetailScreen'})}}
                         />
                     </Drawer.Section>
                     <Drawer.Section title="Preferences">

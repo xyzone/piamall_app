@@ -6,7 +6,7 @@ import * as React from 'react';
  
 import CartScreen from '../screens/Cart/CartScreen';   
 import CheckoutScreen from '../screens/Cart/CheckoutScreen';   
- 
+import CheckoutCompleteScreen from '../screens/Cart/CheckoutCompleteScreen'; 
 const CartNavi = createStackNavigator();
 const INITIAL_ROUTE_NAME = 'CartScreen';
 CartNavi.navigationOptions = {
@@ -60,7 +60,26 @@ export default function CartNavigator({ navigation, route }) {
           ),        
         }}
       />         
-      
+      <CartNavi.Screen
+        name="CheckoutCompleteScreen"
+        component={CheckoutCompleteScreen}
+        options={{
+          headerLeft: () => (<Text>Order Completed</Text>), 
+          headerTitle: '',
+          headerRight: () => (            
+            <Button 
+            color="#345678" 
+            style={{marginRight:5}}
+            labelStyle={{ color: "white", fontSize: 13 }}
+              icon="arrow-left-bold-circle"  mode="contained" 
+            
+            onPress={() => navigation.navigate('HomeScreen') } >
+              Back to Home
+            </Button>
+             
+          ),        
+        }}
+      />     
     </CartNavi.Navigator>
   );
 }

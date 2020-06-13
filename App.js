@@ -8,6 +8,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import LoginNavigator from './navigation/LoginNavigator';
 import MainNavigator from './navigation/MainNavigator';
 import Main1Navigator from './navigation/Main1Navigator';
+import AccountNavigator from './navigation/AccountNavigator';
+import OrderNavigator from './navigation/OrderNavigator';
 import useLinking from './navigation/useLinking';  
 import { navigationRef } from './navigation/RootNavigation';
 import { Provider as AuthProvider } from './contexts/AuthContext'; 
@@ -68,6 +70,10 @@ export default function App(props) {
             <Stack.Navigator screenOptions={{headerShown: false}}  >   
               <Stack.Screen name="LoginNavigator" component={ LoginNavigator } />
               <Stack.Screen name="MainNavigator" component={ MainNavigator } />   
+
+              <Stack.Screen name="OrderNavigator" component={ OrderNavigator } />   
+
+              <Stack.Screen name="AccountNavigator" component={ AccountNavigator } />   
               <Stack.Screen name="Main1Navigator" component={ Main1Navigator } />   
             </Stack.Navigator>
           </NavigationContainer>

@@ -6,27 +6,46 @@ import { SearchBar, ListItem, Header } from 'react-native-elements';
 import {Button, List, Divider } from 'react-native-paper';
 import { RectButton, ScrollView } from 'react-native-gesture-handler';
 import { Context as AuthContext } from '../../contexts/AuthContext'
-import { GetShoppingCart } from '../../apis/PIAMallApi'
+import { GetShoppingCart, ValidateCheckout } from '../../apis/PIAMallApi'
 import { NavBarScreen }  from '../NavbarScreen';
-export default function LinksScreen({navigation}) {
+export default function CartScreen({navigation}) {
   const { validateLogin} = React.useContext(AuthContext)
   const [shoppingCart, setShoppingCart] = React.useState({})
   async function refreshShoppingCart(){
     setShoppingCart({}) 
-    let sc_cart = await GetShoppingCart()
-    console.log(sc_cart.data.instances.data[0])
+    let sc_cart = await GetShoppingCart() 
     if (sc_cart.data.result){  
       setShoppingCart(sc_cart.data.instances.data[0]) 
     }  
   } 
 
+  async function validateCart(){
+    let result = await ValidateCheckout()
+    if(result.data.result){
+      navigation.navigate('CheckoutScreen');
+    }
+    else{ 
+      return false
+    }
+  }
+
   React.useEffect(() =>{ 
     async function checkLogin(){
       await validateLogin()
     } 
-    checkLogin() 
-    refreshShoppingCart()
+    checkLogin()  
   }, [])
+  
+  React.useEffect(() =>{  
+    const unsubscribe = navigation.addListener('focus', () => {
+      // The screen is focused
+      // Call any action 
+      refreshShoppingCart()
+    });
+
+    // Return the function to unsubscribe from the event so it gets removed on unmount
+    return unsubscribe;
+  }, [navigation])
   
   const renderCartProduct = ({ item }) => { 
     return (
@@ -98,11 +117,9 @@ export default function LinksScreen({navigation}) {
             labelStyle={{ color: "white", fontSize: 13 }}
               icon="arrow-right-bold-circle"  mode="contained" 
             
-            onPress={() => navigation.navigate('CheckoutScreen') } >
+            onPress={() => validateCart()} >
               Checkout with Payment
             </Button>    
-
-        
     </ScrollView>
   );
 }

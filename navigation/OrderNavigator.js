@@ -28,7 +28,7 @@ export default function OrderNavigator() {
         name="OrderDetailScreen"
         component={OrderDetailScreen}
         options={{
-          headerTitle: 'OrderDetailScreen',
+          headerTitle: 'Order Detail Screen',
           headerLeft: null,          
         }}
       />         

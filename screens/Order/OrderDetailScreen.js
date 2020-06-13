@@ -4,9 +4,9 @@ import { Button, Text } from 'react-native-elements';
 import { Context as AuthContext } from '../../contexts/AuthContext'; 
  
 
-export default function OrderDetailScreen({navigation}) { 
+export default function OrderDetailScreen({navigation, route}) { 
     const { validateLogin } = useContext(AuthContext)
-  
+    const { order_data } = route.params 
     useEffect( () => {  
       async function checkLogin(){
         await validateLogin()
@@ -16,7 +16,8 @@ export default function OrderDetailScreen({navigation}) {
      
     return (
         <View style={styles.container}>  
-            <Text>Category Screen.</Text>
+            <Text>Category Screen.{order_data.order_id}</Text>
+            <Text>Order Token {order_data.order_token}</Text>
             <Button  
                 title="List Order!"
                 containerStyle={{ flex: -1 }}

@@ -11,6 +11,7 @@ export default function Main1Navigator() {
     <Drawer1.Navigator> 
       <Drawer1.Screen name="MallNavi" component={ MallNavigator } />    
       <Drawer1.Screen name="ShoppingCartNavi" component={CartNavigator} /> 
+      <Drawer1.Screen name="OrderNavigator" component={ OrderNavigator } />  
       <Drawer1.Screen name="AccountNavi" component={ BottomTabNavigator } />      
     </Drawer1.Navigator>
   );

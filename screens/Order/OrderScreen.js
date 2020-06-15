@@ -27,10 +27,10 @@ export default function OrderScreen({navigation}) {
           }  >
         <ListItem
           key={item.id.toString()}
-          title={item.id.toString()}
-          subtitle={`Reward Points: ${item.total_points}, Status: ${item.status}` } 
+          title={`${item.status}`}
+          subtitle={`Reward Points: ${item.total_points}\nordered @ ${item.entry_date}` } 
           leftAvatar={ 
-            item.status? {source: {uri:  item.status  }} : {title: item.status}
+            {title: item.id.toString()}
            }
           bottomDivider
           chevron
@@ -66,11 +66,11 @@ export default function OrderScreen({navigation}) {
               }
               ListFooterComponent={
                 <Button  
-                    title="Order Detail"
+                    title="Go to Home"
                     containerStyle={{ flex: -1 }}
                     buttonStyle={styles.button} 
                     titleStyle={styles.textButton} 
-                    onPress={()=>refreshOrderList()}
+                    onPress={() => {navigation.navigate('MainNavigator', {screen: 'MallNavi'})}}
                 /> 
               }
               contentContainerStyle={{ flexGrow: 1}}  /> 

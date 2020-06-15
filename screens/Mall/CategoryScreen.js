@@ -83,7 +83,7 @@ export default function CategoryScreen({ route, navigation }) {
  
   
     return (
-      <View  style={styles.container}>  
+        <View  style={styles.container}>  
             <Block>{ NavbarCategoryScreen({ navigation, route })}</Block> 
             {parent_category ? 
             
@@ -130,7 +130,7 @@ export default function CategoryScreen({ route, navigation }) {
               :
               <Text>No any product found</Text>
             } 
-        </View>
+       </View>
     )
 }
 

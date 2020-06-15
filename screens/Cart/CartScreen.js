@@ -72,55 +72,58 @@ export default function CartScreen({navigation}) {
   }
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-        
-        {shoppingCart.billing_address? 
-        <View> 
-          <List.Item 
-            title="Billing Name"
-            description={
-               
-              <Text numberOfLines={1}>
-              {shoppingCart.billing_address.bill_name}  
-              </Text>
-               
-              }
-          /> 
-          <List.Item 
-            title="Billing Address"
-            description={
-               
-            <Text numberOfLines={2}>
-              {shoppingCart.billing_address.bill_street} {shoppingCart.billing_address.bill_street2},
-    {shoppingCart.billing_address.bill_suburb}, {shoppingCart.billing_address.bill_state} {shoppingCart.billing_address.bill_postcode}
-            </Text> 
-            }
-          /> 
-          
-       <Divider />
-          {shoppingCart.scps? 
-              <FlatList keyExtractor={item => item.scp_id.toString()}  
+    <View style={styles.container} contentContainerStyle={styles.contentContainer}>
+        {shoppingCart.scps? 
+            <FlatList keyExtractor={item => item.scp_id.toString()}  
               data={shoppingCart.scps}  renderItem={renderCartProduct}  
-              contentContainerStyle={{ flexGrow: 1}}  /> 
-              :
-              <Text>No any product found</Text>
+              contentContainerStyle={{ flexGrow: 1}}  
+              ListHeaderComponent = {
+                <View>
+                <List.Item 
+                    title="Billing Name"
+                    description={
+                      
+                      <Text numberOfLines={1}>
+                      {shoppingCart.billing_address.bill_name}  
+                      </Text>
+                      
+                      }
+                  /> 
+                  <List.Item 
+                    title="Billing Address"
+                    description={
+                      
+                    <Text numberOfLines={2}>
+                      {shoppingCart.billing_address.bill_street} {shoppingCart.billing_address.bill_street2},
+            {shoppingCart.billing_address.bill_suburb}, {shoppingCart.billing_address.bill_state} {shoppingCart.billing_address.bill_postcode}
+                    </Text> 
+                    }
+                  /> 
+                  
+                <Divider />
+                </View>
+            }
+            ListFooterComponent={
+                <View>
+                <Divider />
+                <Button 
+                    color="#4cb051" 
+                    style={{marginRight:5}}
+                    labelStyle={{ color: "white", fontSize: 13 }}
+                      icon="arrow-right-bold-circle"  mode="contained" 
+                    
+                    onPress={() => validateCart()} >
+                      Checkout with Payment
+                    </Button>    
+                </View>
             } 
-
-
-        </View>  
-          :          
-        <Text>Wait for processing</Text>}  
-        <Divider />
-        <Button 
-            color="#4cb051" 
-            style={{marginRight:5}}
-            labelStyle={{ color: "white", fontSize: 13 }}
-              icon="arrow-right-bold-circle"  mode="contained" 
-            
-            onPress={() => validateCart()} >
-              Checkout with Payment
-            </Button>    
-    </ScrollView>
+            /> 
+            :
+            <Text>No any product found</Text>
+          }  
+         
+       
+    </View>
   );
 }
 

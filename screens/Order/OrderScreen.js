@@ -57,44 +57,27 @@ export default function OrderScreen({navigation}) {
     checkLogin() 
   }, [])
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-      <Text>{orderList.total_orders}</Text>
-      {orderList? 
-              <FlatList keyExtractor={item => item.id.toString()}  
+    <View style={styles.container} contentContainerStyle={styles.contentContainer}>
+      {orderList?  
+        <FlatList keyExtractor={item => item.id.toString()}  
               data={orderList.data}  renderItem={renderOrder}  
+              ListHeaderComponent={
+                <Text>{orderList.total_orders}</Text>
+              }
+              ListFooterComponent={
+                <Button  
+                    title="Order Detail"
+                    containerStyle={{ flex: -1 }}
+                    buttonStyle={styles.button} 
+                    titleStyle={styles.textButton} 
+                    onPress={()=>refreshOrderList()}
+                /> 
+              }
               contentContainerStyle={{ flexGrow: 1}}  /> 
-              :
-              <Text>No any product found</Text>
-            } 
-      
-      <OptionButton
-        icon="md-school"
-        label="Read the Expo documentation"
-        onPress={() => WebBrowser.openBrowserAsync('https://docs.expo.io')}
-      />
-
-      <OptionButton
-        icon="md-compass"
-        label="Read the React Navigation documentation"
-        onPress={() => WebBrowser.openBrowserAsync('https://reactnavigation.org')}
-      />
-
-      <OptionButton
-        icon="ios-chatboxes"
-        label="Ask a question on the forums"
-        onPress={() => WebBrowser.openBrowserAsync('https://forums.expo.io')}
-        isLastOption
-      />
-
-      <Button  
-                title="Order Detail"
-                containerStyle={{ flex: -1 }}
-                buttonStyle={styles.button} 
-                titleStyle={styles.textButton} 
-                onPress={()=>refreshOrderList()}
-            /> 
-          
-    </ScrollView>
+      :
+        <Text>No any product found</Text>
+      }   
+    </View>
   );
 }
 

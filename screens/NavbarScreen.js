@@ -7,7 +7,7 @@ import theme from '../constants/Themes';
 export function NavBarScreen({navigation}){
     return(
         <NavBar
-            title="Mall"
+            title="Mall Home"
             left={(
               <TouchableOpacity onPress={() => navigation.openDrawer()}>
                 <Icon 
@@ -22,7 +22,7 @@ export function NavBarScreen({navigation}){
             right= {(
               <TouchableOpacity onPress={() => navigation.navigate('ShoppingCartNavi', {screen: 'CartScreen'})}>
               <Icon 
-              style={{width: 300, height: 300}}
+               
                 name="shopping-cart"
                 family="feather"
                 size={theme.SIZES.BASE}

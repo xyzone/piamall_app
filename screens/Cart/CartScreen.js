@@ -10,7 +10,7 @@ import { GetShoppingCart, ValidateCheckout } from '../../apis/PIAMallApi'
 import { NavBarScreen }  from '../NavbarScreen';
 export default function CartScreen({navigation}) {
   const { validateLogin} = React.useContext(AuthContext)
-  const [shoppingCart, setShoppingCart] = React.useState({})
+  const [shoppingCart, setShoppingCart] = React.useState(null)
   async function refreshShoppingCart(){
     setShoppingCart({}) 
     let sc_cart = await GetShoppingCart() 
@@ -73,7 +73,7 @@ export default function CartScreen({navigation}) {
 
   return (
     <View style={styles.container} contentContainerStyle={styles.contentContainer}>
-        {shoppingCart.scps? 
+        {shoppingCart ? 
             <FlatList keyExtractor={item => item.scp_id.toString()}  
               data={shoppingCart.scps}  renderItem={renderCartProduct}  
               contentContainerStyle={{ flexGrow: 1}}  
@@ -119,7 +119,7 @@ export default function CartScreen({navigation}) {
             } 
             /> 
             :
-            <Text>No any product found</Text>
+            <Text>No any product found in your cart</Text>
           }  
          
        

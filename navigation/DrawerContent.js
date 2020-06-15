@@ -70,7 +70,7 @@ export function DrawerContent(props) {
                                 size={size}
                                 />
                             )}
-                            label="Home"
+                            label="Mall Home"
                             onPress={() => {props.navigation.navigate('HomeScreen')}}
                         />
                         <DrawerItem 
@@ -81,7 +81,7 @@ export function DrawerContent(props) {
                                 size={size}
                                 />
                             )}
-                            label="Profile"
+                            label="Account"
                             onPress={() => {props.navigation.navigate('AccountNavigator', {screen: 'AccountScreen'})}}
                         />
                         <DrawerItem 
@@ -92,7 +92,7 @@ export function DrawerContent(props) {
                                 size={size}
                                 />
                             )}
-                            label="Order List"
+                            label="My Orders"
                             onPress={() => {props.navigation.navigate('OrderNavigator', {screen: 'OrderScreen'})}}
                         />
                         <DrawerItem 

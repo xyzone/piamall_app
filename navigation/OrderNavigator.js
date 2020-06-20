@@ -1,6 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react';
- 
+
+import {Button, Text } from 'react-native-paper'; 
 import OrderScreen from '../screens/Order/OrderScreen';  
 import OrderDetailScreen from '../screens/Order/OrderDetailScreen';   
 
@@ -13,14 +14,25 @@ OrderNavi.navigationOptions = {
   
 };
 
-export default function OrderNavigator() { 
+export default function OrderNavigator({navigation}) { 
   return (
     <OrderNavi.Navigator  initialRouteName={INITIAL_ROUTE_NAME}>
        <OrderNavi.Screen
         name="OrderScreen"
         component={OrderScreen}
         options={{
-          headerTitle: 'OrderScreen',
+          headerTitle: 'Orders',
+          headerRight: () => (            
+            <Button 
+            color="#345678" 
+            style={{marginRight:5}}
+            labelStyle={{ color: "white", fontSize: 13 }}
+              icon="arrow-left-bold-circle"  mode="contained" 
+            
+            onPress={() => navigation.navigate('HomeScreen') } >
+              Back to Home 
+            </Button> 
+          ),
           
         }}
       />     
@@ -28,8 +40,20 @@ export default function OrderNavigator() {
         name="OrderDetailScreen"
         component={OrderDetailScreen}
         options={{
-          headerTitle: 'Order Detail Screen',
-          headerLeft: null,          
+          headerTitle: '',
+          headerLeft: null, 
+          headerRight: () => (            
+            <Button 
+            color="#345678" 
+            style={{marginRight:5}}
+            labelStyle={{ color: "white", fontSize: 13 }}
+              icon="arrow-left-bold-circle"  mode="contained" 
+            
+            onPress={() => navigation.navigate('OrderScreen') } >
+              Back to Order List 
+            </Button>
+             
+          ),         
         }}
       />         
      

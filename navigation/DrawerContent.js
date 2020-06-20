@@ -94,30 +94,7 @@ export function DrawerContent(props) {
                             )}
                             label="My Orders"
                             onPress={() => {props.navigation.navigate('OrderNavigator', {screen: 'OrderScreen'})}}
-                        />
-                        <DrawerItem 
-                            icon={({color, size}) => (
-                                <Icon 
-                                name="settings-outline" 
-                                color={color}
-                                size={size}
-                                />
-                            )}
-                            label="OrderNavigator"
-                            onPress={() => {props.navigation.navigate('OrderNavigator')}}
-                        />
-                        <DrawerItem 
-                            icon={({color, size}) => (
-                                <Icon 
-                                name="account-check-outline" 
-                                color={color}
-                                size={size}
-                                />
-                            )}
-                            label="OrderDetail"
-                            onPress={
-                                () => {props.navigation.navigate('OrderNavigator', {screen: 'OrderDetailScreen'})}}
-                        />
+                        /> 
                     </Drawer.Section>
                     <Drawer.Section title="Preferences">
                         <TouchableRipple >

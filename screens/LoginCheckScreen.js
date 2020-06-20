@@ -6,7 +6,6 @@ import { Context as AuthContext  } from '../contexts/AuthContext';
 
 export default function LoginCheckScreen({navigation}) { 
     const { authState, validateLogin } = React.useContext(AuthContext)
-     
     React.useEffect( () => {  
       async function checkLogin(){
         await validateLogin(); 

@@ -9,9 +9,9 @@ import { capPostData, capPostDataNoEncry } from '../components/GeneralFunctions'
 const homeAPI = () => {
      
     return (axios.create({ 
-    //baseURL: 'http://192.168.43.56:7150/en/'
+    baseURL: 'http://192.168.43.56:7150/en/'
     //baseURL: 'http://192.168.30.52:7150/en/'
-    baseURL: 'http://192.168.1.115:7150/en/'   
+    //baseURL: 'http://192.168.1.115:7150/en/'   
  }))
 }
 

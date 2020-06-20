@@ -1,6 +1,8 @@
 import { Ionicons } from '@expo/vector-icons';
 import * as WebBrowser from 'expo-web-browser';
 import * as React from 'react';
+
+import { useFocusEffect } from '@react-navigation/native';
 import { SearchBar, ListItem, Header } from 'react-native-elements';
 import { StyleSheet, Text, View, Button, FlatList, TouchableOpacity } from 'react-native';
 import { RectButton, ScrollView } from 'react-native-gesture-handler';
@@ -38,17 +40,13 @@ export default function OrderScreen({navigation}) {
     </TouchableOpacity>
     )
   }
-  
-  React.useEffect(() =>{  
-    const unsubscribe = navigation.addListener('focus', () => {
-      // The screen is focused
-      // Call any action 
+  useFocusEffect(
+    React.useCallback(() => {
       refreshOrderList()
-    });
-
-    // Return the function to unsubscribe from the event so it gets removed on unmount
-    return unsubscribe;
-  }, [navigation])
+      
+   }, [navigation])
+  )
+  
   
   React.useEffect(() => { 
     async function checkLogin(){
@@ -62,7 +60,7 @@ export default function OrderScreen({navigation}) {
         <FlatList keyExtractor={item => item.id.toString()}  
               data={orderList.data}  renderItem={renderOrder}  
               ListHeaderComponent={
-                <Text>{orderList.total_orders}</Text>
+                <Text>You have {orderList.total_orders} orders in total!</Text>
               }
               ListFooterComponent={
                 <Button  

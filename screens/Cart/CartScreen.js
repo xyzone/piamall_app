@@ -1,6 +1,8 @@
 import { Ionicons } from '@expo/vector-icons';
 import * as WebBrowser from 'expo-web-browser';
 import * as React from 'react';
+import { useFocusEffect } from '@react-navigation/native';
+ 
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { SearchBar, ListItem, Header } from 'react-native-elements';
 import {Button, List, Divider } from 'react-native-paper';
@@ -11,8 +13,8 @@ import { NavBarScreen }  from '../NavbarScreen';
 export default function CartScreen({navigation}) {
   const { validateLogin} = React.useContext(AuthContext)
   const [shoppingCart, setShoppingCart] = React.useState(null)
-  async function refreshShoppingCart(){
-    setShoppingCart({}) 
+  
+  async function refreshShoppingCart(){ 
     let sc_cart = await GetShoppingCart() 
     if (sc_cart.data.result){  
       setShoppingCart(sc_cart.data.instances.data[0]) 
@@ -29,23 +31,25 @@ export default function CartScreen({navigation}) {
     }
   }
 
+  
   React.useEffect(() =>{ 
+    let unmounted = false;
     async function checkLogin(){
       await validateLogin()
     } 
-    checkLogin()  
+    if(!unmounted){
+      checkLogin()  
+      //refreshShoppingCart()
+    }
+    
+    return () => {unmounted = true}
   }, [])
-  
-  React.useEffect(() =>{  
-    const unsubscribe = navigation.addListener('focus', () => {
-      // The screen is focused
-      // Call any action 
-      refreshShoppingCart()
-    });
 
-    // Return the function to unsubscribe from the event so it gets removed on unmount
-    return unsubscribe;
-  }, [navigation])
+  useFocusEffect(
+    React.useCallback(() => {
+      refreshShoppingCart() 
+    }, [navigation])
+  ) 
   
   const renderCartProduct = ({ item }) => { 
     return (
@@ -73,7 +77,7 @@ export default function CartScreen({navigation}) {
 
   return (
     <View style={styles.container} contentContainerStyle={styles.contentContainer}>
-        {shoppingCart ? 
+        {shoppingCart && shoppingCart.scps.length > 0 ? 
             <FlatList keyExtractor={item => item.scp_id.toString()}  
               data={shoppingCart.scps}  renderItem={renderCartProduct}  
               contentContainerStyle={{ flexGrow: 1}}  
